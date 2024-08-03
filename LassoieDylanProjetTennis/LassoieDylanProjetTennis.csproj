@@ -1,11 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Ressources\Fonts\Poppins-Black.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-BlackItalic.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-Bold.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-BoldItalic.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-ExtraBold.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-ExtraBoldItalic.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-ExtraLight.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-ExtraLightItalic.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-Italic.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-Light.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-LightItalic.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-Medium.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-MediumItalic.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-Regular.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-SemiBold.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-SemiBoldItalic.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-Thin.ttf"></Content>
+		<Content Include="Ressources\Fonts\Poppins-ThinItalic.ttf"></Content>
+	</ItemGroup>
 
 </Project>

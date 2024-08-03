@@ -1,24 +1,40 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+using LassoieDylanProjetTennis.Ressources.Views;
 namespace LassoieDylanProjetTennis
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new HomeView());
+        }
+
+        // Navigation menu
+        private void NavigationMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (NavigationMenu.SelectedItem is ListBoxItem selectedItem)
+            {
+                switch (selectedItem.Content.ToString())
+                {
+                    case "Home":
+                        MainFrame.Navigate(new HomeView());
+                        break;
+                    case "Tournaments":
+                        //MainFrame.Navigate(new HomeView());
+                        break;
+                    case "Stadiums":
+                        //MainFrame.Navigate(new HomeView());
+                        break;
+                    case "Players":
+                        MainFrame.Navigate(new PlayersView());
+                        break;
+                    case "Referees":
+                        //MainFrame.Navigate(new HomeView());
+                        break;
+                }
+            }
         }
     }
 }

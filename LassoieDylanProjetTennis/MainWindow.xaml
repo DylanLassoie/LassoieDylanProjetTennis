@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LassoieDylanProjetTennis"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800"
+        WindowState="Maximized">
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Largeur menu déroulant -->
+            <ColumnDefinition Width="200"/>
+            <!-- Largeur de la frame pour autres vues -->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Menu déroulant -->
+        <ListBox x:Name="NavigationMenu" SelectionChanged="NavigationMenu_SelectionChanged" Style="{StaticResource NavigationMenuStyle}">
+            <ListBoxItem Content="Home" Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Tournaments" Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Stadiums" Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Players" Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Referees" Style="{StaticResource MenuButtonStyle}"/>
+        </ListBox>
+
+        <!-- Frame pour vues -->
+        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
