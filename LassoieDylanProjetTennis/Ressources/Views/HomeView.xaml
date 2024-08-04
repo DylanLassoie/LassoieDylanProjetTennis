@@ -9,6 +9,7 @@
       Title="HomeView">
 
     <Grid Style="{StaticResource HomeBackgroundStyle}">
+        <!-- Crédit  -->
         <TextBlock Text="Organisation d'un tournoi du grand Slam" Style="{StaticResource Title1Style}"/>
         <TextBlock Text="Par Lassoie Dylan" Style="{StaticResource Title2Style}"/>
     </Grid>
