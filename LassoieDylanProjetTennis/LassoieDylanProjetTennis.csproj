@@ -7,26 +7,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
-		<Resource Include="Ressources\Fonts\Poppins-Black.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-BlackItalic.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-Bold.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-BoldItalic.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-ExtraBold.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-ExtraBoldItalic.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-ExtraLight.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-ExtraLightItalic.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-Italic.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-Light.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-LightItalic.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-Medium.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-MediumItalic.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-Regular.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-SemiBold.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-SemiBoldItalic.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-Thin.ttf" />
-		<Resource Include="Ressources\Fonts\Poppins-ThinItalic.ttf" />
 		<PackageReference Include="ADO.Net.Client.Core" Version="1.4.5" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	</ItemGroup>

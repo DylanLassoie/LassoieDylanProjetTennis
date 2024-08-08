@@ -22,16 +22,16 @@ namespace LassoieDylanProjetTennis
                         MainFrame.Navigate(new HomeView());
                         break;
                     case "Tournaments":
-                        //MainFrame.Navigate(new TestArbreView());
+                        MainFrame.Navigate(new TestArbreView());
                         break;
                     case "Stadiums":
-                        //MainFrame.Navigate(new TestTableauCRUD());
+                        MainFrame.Navigate(new TestTableauCRUD());
                         break;
                     case "Players":
                         MainFrame.Navigate(new PlayersView());
                         break;
                     case "Referees":
-                        //MainFrame.Navigate(new HomeView());
+                        MainFrame.Navigate(new RefereesView());
                         break;
                 }
             }

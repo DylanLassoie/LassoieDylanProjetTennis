@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
+    public enum Gender
+    {
+        Male,
+        Female
+    }
+
     class Person
     {
-        public String Firstname { get; set; }
-        public String Lastname { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
         public String Nationality { get; set; }
-        public enum Gender
-        {
-            Male,
-            Female
-        }
+        public Gender Gender { get; set; }
     }
 }
