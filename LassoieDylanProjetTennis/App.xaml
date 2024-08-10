@@ -7,9 +7,8 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Ressources/Themes/MenuButton.xaml"/>
-                <ResourceDictionary Source="/Ressources/Themes/Home.xaml"/>
-                <ResourceDictionary Source="/Ressources/Themes/NavigationMenu.xaml"/>
+                <ResourceDictionary Source="/Ressources/Themes/MainWindowStyle.xaml"/>
+                <ResourceDictionary Source="/Ressources/Themes/HomeStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

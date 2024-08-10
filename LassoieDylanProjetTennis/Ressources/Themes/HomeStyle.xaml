@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Font Resources -->
+    <FontFamily x:Key="PoppinsBlack">pack://application:,,,/LassoieDylanProjetTennis;component/Ressources/Fonts/#Poppins Black</FontFamily>
+    <FontFamily x:Key="PoppinsSemiBoldItalic">pack://application:,,,/LassoieDylanProjetTennis;component/Ressources/Fonts/#Poppins SemiBold Italic</FontFamily>
+
+    <!-- Grid Background Style -->
+    <Style TargetType="Grid" x:Key="HomeBackgroundStyle">
+        <Setter Property="Background" Value="#EFFAFD"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="20"/>
+    </Style>
+
+    <!-- Title 1 Style -->
+    <Style TargetType="TextBlock" x:Key="Title1Style">
+        <Setter Property="Foreground" Value="DarkRed"/>
+        <Setter Property="FontFamily" Value="{StaticResource PoppinsBlack}"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Margin" Value="0 0 0 20"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Title 2 Style -->
+    <Style TargetType="TextBlock" x:Key="Title2Style">
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="FontFamily" Value="{StaticResource PoppinsSemiBoldItalic}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Margin" Value="0 50 0 0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
+</ResourceDictionary>

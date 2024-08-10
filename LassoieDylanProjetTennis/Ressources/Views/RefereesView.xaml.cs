@@ -30,15 +30,14 @@ namespace LassoieDylanProjetTennis.Ressources.Views
         {
             InitializeComponent();
             string connectionString = ConfigurationManager.ConnectionStrings["LassoieDylan"].ConnectionString;
-            _refereeDao = new RefereeDAO(connectionString);
+            
 
             LoadReferees();
         }
 
         private void LoadReferees()
         {
-            _referees = new ObservableCollection<Referee>(_refereeDao.GetAll());
-            TournamentsDataGrid.ItemsSource = _referees;
+           
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -65,11 +64,7 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (TournamentsDataGrid.SelectedItem is Referee selectedReferee)
-            {
-                _refereeDao.Delete(selectedReferee.FirstName, selectedReferee.LastName);
-                _referees.Remove(selectedReferee);
-            }
+            
         }
     }
 }

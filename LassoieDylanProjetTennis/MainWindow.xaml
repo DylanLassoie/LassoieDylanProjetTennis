@@ -10,19 +10,19 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <!-- Largeur menu déroulant -->
+            <!-- Largeur menu -->
             <ColumnDefinition Width="200"/>
             <!-- Largeur de la frame pour autres vues -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Menu déroulant -->
+        <!-- Menu -->
         <ListBox x:Name="NavigationMenu" SelectionChanged="NavigationMenu_SelectionChanged" Style="{StaticResource NavigationMenuStyle}">
-            <ListBoxItem Content="Home" Style="{StaticResource MenuButtonStyle}"/>
-            <ListBoxItem Content="Tournaments" Style="{StaticResource MenuButtonStyle}"/>
-            <ListBoxItem Content="Stadiums" Style="{StaticResource MenuButtonStyle}"/>
-            <ListBoxItem Content="Players" Style="{StaticResource MenuButtonStyle}"/>
-            <ListBoxItem Content="Referees" Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Home"  Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Tournaments"  Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Stadiums"  Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Players"  Style="{StaticResource MenuButtonStyle}"/>
+            <ListBoxItem Content="Referees"  Style="{StaticResource MenuButtonStyle}"/>
         </ListBox>
 
         <!-- Frame pour vues -->
