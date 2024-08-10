@@ -6,21 +6,30 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
+    public enum CourtType
+    {
+        Hard,
+        Grass,
+        Clay,
+        Artificial
+    }
+
     class Court
     {
-        public String IdCourt { get; set; }
+        private int IdCourt { get; set; }
+        private CourtType CourtType { get; set; }
+        private int NbSpectators { get; set; }
+        private bool Covered { get; set; }
 
-        public enum CourtType
+        public bool Available()
         {
-            Hard,
-            Grass,
-            Clay,
-            Artificial
+            //Implementation
+            return true;
         }
 
-        public String NbSpectators { get; set; }
-        public String Covered { get; set; }
-
-        
+        public void Release() 
+        {
+            //Implementation
+        }
     }
 }

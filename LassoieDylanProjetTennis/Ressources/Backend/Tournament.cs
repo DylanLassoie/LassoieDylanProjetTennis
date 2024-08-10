@@ -8,6 +8,13 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 {
     class Tournament
     {
-        public string Name { get; set; }
+        private string Name { get; set; }
+        private DateTime StartingDate { get; set; }
+        private DateTime EndingDate { get; set; }
+
+        public void Play()
+        {
+            //Implementation
+        }
     }
 }

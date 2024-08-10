@@ -8,8 +8,8 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 {
     class Stadium
     {
-        public String NameOfStadium { get; set; }
-        public String Location { get; set; }
-        public String NbCourts { get; set; }
+        private String NameOfStadium { get; set; }
+        private String Location { get; set; }
+        private int NbCourts { get; set; }
     }
 }

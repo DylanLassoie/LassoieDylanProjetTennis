@@ -8,8 +8,19 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 {
     class Match
     {
-        public String Date { get; set; }
-        public String Duration { get; set; }
-        public String Round { get; set; }
+        private DateTime Date { get; set; }
+        private TimeSpan Duration { get; set; }
+        private int Round { get; set; }
+
+        public string GetWinner()
+        {
+            //Implementation
+            return "Winner";
+        }
+
+        public void Play()
+        {
+            //Implementation
+        }
     }
 }

@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    class Referee
+    class Referee : Person
     {
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
-        public String League { get; set; }
-        public Person Person { get; set; }
+        private String League { get; set; }
     }
 }

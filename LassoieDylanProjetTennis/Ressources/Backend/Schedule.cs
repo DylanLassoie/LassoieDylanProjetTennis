@@ -6,16 +6,35 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
+    public enum ScheduleType
+    {
+        GentlemenSingle,
+        LadiesSingle,
+        GentlemenDouble,
+        LadiesDouble,
+        MixedDouble
+    }
+
     class Schedule
     {
-        public enum ScheduleType
+        private ScheduleType ScheduleType { get; set; }
+        private int ActualRound { get; set; }
+
+        public int NbWinningSets() 
         {
-            GentlemenSingle,
-            LadiesSingle,
-            GentlemenDouble,
-            LadiesDouble,
-            MixedDouble
+            //Implementation
+            return 0;
         }
-        public String ActualRound { get; set; }
+
+        public void PlayNextRound()
+        {
+            //Implementation
+        }
+
+        public string GetWinner()
+        {
+            //Implementation
+            return "Winner";
+        }
     }
 }

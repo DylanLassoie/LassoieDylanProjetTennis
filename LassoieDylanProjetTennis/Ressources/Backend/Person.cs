@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    public enum Gender
+    public enum GenderType
     {
         Male,
         Female
@@ -14,9 +14,9 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
     class Person
     {
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
-        public String Nationality { get; set; }
-        public Gender Gender { get; set; }
+        private String FirstName { get; set; }
+        private String LastName { get; set; }
+        private String Nationality { get; set; }
+        private GenderType GenderType { get; set; }
     }
 }

@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    class SuperTieBreak : Set
+    internal class Set
     {
+        private int ScoreOp1 {  get; set; }
+        private int ScoreOp2 { get; set; }
+
         public void Play() 
-        {
+        { 
             //Implementation
         }
     }
