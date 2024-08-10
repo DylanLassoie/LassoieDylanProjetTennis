@@ -14,9 +14,9 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
     class Person
     {
-        private String FirstName { get; set; }
-        private String LastName { get; set; }
-        private String Nationality { get; set; }
-        private GenderType GenderType { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public String Nationality { get; set; }
+        public GenderType GenderType { get; set; }
     }
 }

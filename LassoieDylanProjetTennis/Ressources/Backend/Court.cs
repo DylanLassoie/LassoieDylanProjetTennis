@@ -16,10 +16,10 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
     class Court
     {
-        private int IdCourt { get; set; }
-        private CourtType CourtType { get; set; }
-        private int NbSpectators { get; set; }
-        private bool Covered { get; set; }
+        public int IdCourt { get; set; }
+        public CourtType CourtType { get; set; }
+        public int NbSpectators { get; set; }
+        public bool Covered { get; set; }
 
         public bool Available()
         {

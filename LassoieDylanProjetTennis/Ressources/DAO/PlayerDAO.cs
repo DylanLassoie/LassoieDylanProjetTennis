@@ -8,104 +8,157 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.DAO
 {
-    internal class PlayerDAO : IPlayerDAO
+    internal class PlayerDAO : DAO<Player>
     {
-        private readonly string _connectionString;
-
-        public PlayerDAO(string connectionString)
+        public PlayerDAO() : base()
         {
-            _connectionString = connectionString;
+            //
         }
 
-        public void Add(Player player)
+        public override bool Create(Player player)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                var command = new SqlCommand("INSERT INTO Player (FirstName, LastName, Rank) VALUES (@FirstName, @LastName, @Rank)", connection);
-                command.Parameters.AddWithValue("@FirstName", player.FirstName);
-                command.Parameters.AddWithValue("@LastName", player.LastName);
-                command.Parameters.AddWithValue("@Rank", player.Rank);
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    string query = "INSERT INTO Players (FirstName, LastName, Nationality, GenderType, Rank) " +
+                                   "VALUES (@FirstName, @LastName, @Nationality, @GenderType, @Rank)";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", player.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", player.LastName);
+                    cmd.Parameters.AddWithValue("@Nationality", player.Nationality);
+                    cmd.Parameters.AddWithValue("@GenderType", player.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@Rank", player.Rank);
 
-                connection.Open();
-                command.ExecuteNonQuery();
+                    connection.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
             }
         }
 
-        public Player Get(string firstName, string lastName)
+        public override bool Delete(Player player)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                var command = new SqlCommand("SELECT * FROM Player WHERE FirstName = @FirstName AND LastName = @LastName", connection);
-                command.Parameters.AddWithValue("@FirstName", firstName);
-                command.Parameters.AddWithValue("@LastName", lastName);
-
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    if (reader.Read())
+                    string query = "DELETE FROM Players WHERE FirstName = @FirstName AND LastName = @LastName";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", player.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", player.LastName);
+
+                    connection.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+        }
+
+        public override bool Update(Player player)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    string query = "UPDATE Players SET Nationality = @Nationality, GenderType = @GenderType, Rank = @Rank " +
+                                   "WHERE FirstName = @FirstName AND LastName = @LastName";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", player.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", player.LastName);
+                    cmd.Parameters.AddWithValue("@Nationality", player.Nationality);
+                    cmd.Parameters.AddWithValue("@GenderType", player.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@Rank", player.Rank);
+
+                    connection.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+        }
+
+        public override Player Find(int id)
+        {
+            Player player = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    string query = "SELECT * FROM Players WHERE IdPlayer = @IdPlayer";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@IdPlayer", id);
+
+                    connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        return new Player
+                        if (reader.Read())
                         {
-                            FirstName = reader["FirstName"].ToString(),
-                            LastName = reader["LastName"].ToString(),
-                            Rank = Convert.ToInt32(reader["Rank"])
-                        };
+                            player = new Player
+                            {
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
+                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType"))),
+                                Rank = reader.GetInt32(reader.GetOrdinal("Rank"))
+                            };
+                        }
                     }
                 }
             }
-            return null;
-        }
-
-        public void Update(Player player)
-        {
-            using (var connection = new SqlConnection(_connectionString))
+            catch (SqlException ex)
             {
-                var command = new SqlCommand("UPDATE Player SET Rank = @Rank WHERE FirstName = @FirstName AND LastName = @LastName", connection);
-                command.Parameters.AddWithValue("@FirstName", player.FirstName);
-                command.Parameters.AddWithValue("@LastName", player.LastName);
-                command.Parameters.AddWithValue("@Rank", player.Rank);
-
-                connection.Open();
-                command.ExecuteNonQuery();
+                throw new Exception("An SQL error occurred!", ex);
             }
+            return player;
         }
 
-        public void Delete(string firstName, string lastName)
+        // Optional: Add a method to find players by name
+        public Player FindByName(string firstName, string lastName)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            Player player = null;
+            try
             {
-                var command = new SqlCommand("DELETE FROM Player WHERE FirstName = @FirstName AND LastName = @LastName", connection);
-                command.Parameters.AddWithValue("@FirstName", firstName);
-                command.Parameters.AddWithValue("@LastName", lastName);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public IEnumerable<Player> GetAll()
-        {
-            var players = new List<Player>();
-
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var command = new SqlCommand("SELECT * FROM Player", connection);
-
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    while (reader.Read())
+                    string query = "SELECT * FROM Players WHERE FirstName = @FirstName AND LastName = @LastName";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", firstName);
+                    cmd.Parameters.AddWithValue("@LastName", lastName);
+
+                    connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        players.Add(new Player
+                        if (reader.Read())
                         {
-                            FirstName = reader["FirstName"].ToString(),
-                            LastName = reader["LastName"].ToString(),
-                            Rank = Convert.ToInt32(reader["Rank"])
-                        });
+                            player = new Player
+                            {
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
+                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType"))),
+                                Rank = reader.GetInt32(reader.GetOrdinal("Rank"))
+                            };
+                        }
                     }
                 }
             }
-            return players;
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+            return player;
         }
     }
 }

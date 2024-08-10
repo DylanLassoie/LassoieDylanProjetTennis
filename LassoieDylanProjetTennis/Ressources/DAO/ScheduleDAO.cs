@@ -8,25 +8,23 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.DAO
 {
-    internal class PersonDAO : DAO<Person>
+    internal class ScheduleDAO : DAO<Schedule>
     {
-        public PersonDAO() : base()
+        public ScheduleDAO() : base()
         {
             //
         }
 
-        public override bool Create(Person person)
+        public override bool Create(Schedule schedule)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "INSERT INTO Persons (FirstName, LastName, Nationality, GenderType) VALUES (@FirstName, @LastName, @Nationality, @GenderType)";
+                    string query = "INSERT INTO Schedules (ScheduleType, ActualRound) VALUES (@ScheduleType, @ActualRound)";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
-                    cmd.Parameters.AddWithValue("@Nationality", person.Nationality);
-                    cmd.Parameters.AddWithValue("@GenderType", person.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@ScheduleType", schedule.ScheduleType.ToString());
+                    cmd.Parameters.AddWithValue("@ActualRound", schedule.ActualRound);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -39,16 +37,16 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override bool Delete(Person person)
+        public override bool Delete(Schedule schedule)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "DELETE FROM Persons WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "DELETE FROM Schedules WHERE ScheduleType = @ScheduleType AND ActualRound = @ActualRound";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
+                    cmd.Parameters.AddWithValue("@ScheduleType", schedule.ScheduleType.ToString());
+                    cmd.Parameters.AddWithValue("@ActualRound", schedule.ActualRound);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -61,18 +59,16 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override bool Update(Person person)
+        public override bool Update(Schedule schedule)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "UPDATE Persons SET Nationality = @Nationality, GenderType = @GenderType WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "UPDATE Schedules SET ActualRound = @ActualRound WHERE ScheduleType = @ScheduleType";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
-                    cmd.Parameters.AddWithValue("@Nationality", person.Nationality);
-                    cmd.Parameters.AddWithValue("@GenderType", person.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@ScheduleType", schedule.ScheduleType.ToString());
+                    cmd.Parameters.AddWithValue("@ActualRound", schedule.ActualRound);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -85,28 +81,26 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override Person Find(int id)
+        public override Schedule Find(int id)
         {
-            Person person = null;
+            Schedule schedule = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Persons WHERE IdPerson = @IdPerson";
+                    string query = "SELECT * FROM Schedules WHERE IdSchedule = @IdSchedule";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdPerson", id);
+                    cmd.Parameters.AddWithValue("@IdSchedule", id);
 
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            person = new Person
+                            schedule = new Schedule
                             {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                                ScheduleType = (ScheduleType)Enum.Parse(typeof(ScheduleType), reader.GetString(reader.GetOrdinal("ScheduleType"))),
+                                ActualRound = reader.GetInt32(reader.GetOrdinal("ActualRound"))
                             };
                         }
                     }
@@ -116,33 +110,30 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 throw new Exception("An SQL error occurred!", ex);
             }
-            return person;
+            return schedule;
         }
 
-        // Optional: Add a method to find persons by first and last name
-        public Person FindByName(string firstName, string lastName)
+        // Optional: Add a method to find schedules by ScheduleType
+        public Schedule FindByType(ScheduleType scheduleType)
         {
-            Person person = null;
+            Schedule schedule = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Persons WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "SELECT * FROM Schedules WHERE ScheduleType = @ScheduleType";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", firstName);
-                    cmd.Parameters.AddWithValue("@LastName", lastName);
+                    cmd.Parameters.AddWithValue("@ScheduleType", scheduleType.ToString());
 
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            person = new Person
+                            schedule = new Schedule
                             {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                                ScheduleType = (ScheduleType)Enum.Parse(typeof(ScheduleType), reader.GetString(reader.GetOrdinal("ScheduleType"))),
+                                ActualRound = reader.GetInt32(reader.GetOrdinal("ActualRound"))
                             };
                         }
                     }
@@ -152,7 +143,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 throw new Exception("An SQL error occurred!", ex);
             }
-            return person;
+            return schedule;
         }
     }
 }

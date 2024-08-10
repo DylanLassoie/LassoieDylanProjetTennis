@@ -8,25 +8,24 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.DAO
 {
-    internal class PersonDAO : DAO<Person>
+    internal class StadiumDAO : DAO<Stadium>
     {
-        public PersonDAO() : base()
+        public StadiumDAO() : base()
         {
             //
         }
 
-        public override bool Create(Person person)
+        public override bool Create(Stadium stadium)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "INSERT INTO Persons (FirstName, LastName, Nationality, GenderType) VALUES (@FirstName, @LastName, @Nationality, @GenderType)";
+                    string query = "INSERT INTO Stadiums (NameOfStadium, Location, NbCourts) VALUES (@NameOfStadium, @Location, @NbCourts)";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
-                    cmd.Parameters.AddWithValue("@Nationality", person.Nationality);
-                    cmd.Parameters.AddWithValue("@GenderType", person.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@NameOfStadium", stadium.NameOfStadium);
+                    cmd.Parameters.AddWithValue("@Location", stadium.Location);
+                    cmd.Parameters.AddWithValue("@NbCourts", stadium.NbCourts);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -39,16 +38,15 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override bool Delete(Person person)
+        public override bool Delete(Stadium stadium)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "DELETE FROM Persons WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "DELETE FROM Stadiums WHERE NameOfStadium = @NameOfStadium";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
+                    cmd.Parameters.AddWithValue("@NameOfStadium", stadium.NameOfStadium);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -61,18 +59,17 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override bool Update(Person person)
+        public override bool Update(Stadium stadium)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "UPDATE Persons SET Nationality = @Nationality, GenderType = @GenderType WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "UPDATE Stadiums SET Location = @Location, NbCourts = @NbCourts WHERE NameOfStadium = @NameOfStadium";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
-                    cmd.Parameters.AddWithValue("@Nationality", person.Nationality);
-                    cmd.Parameters.AddWithValue("@GenderType", person.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@NameOfStadium", stadium.NameOfStadium);
+                    cmd.Parameters.AddWithValue("@Location", stadium.Location);
+                    cmd.Parameters.AddWithValue("@NbCourts", stadium.NbCourts);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -85,28 +82,27 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override Person Find(int id)
+        public override Stadium Find(int id)
         {
-            Person person = null;
+            Stadium stadium = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Persons WHERE IdPerson = @IdPerson";
+                    string query = "SELECT * FROM Stadiums WHERE IdStadium = @IdStadium";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdPerson", id);
+                    cmd.Parameters.AddWithValue("@IdStadium", id);
 
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            person = new Person
+                            stadium = new Stadium
                             {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                                NameOfStadium = reader.GetString(reader.GetOrdinal("NameOfStadium")),
+                                Location = reader.GetString(reader.GetOrdinal("Location")),
+                                NbCourts = reader.GetInt32(reader.GetOrdinal("NbCourts"))
                             };
                         }
                     }
@@ -116,33 +112,31 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 throw new Exception("An SQL error occurred!", ex);
             }
-            return person;
+            return stadium;
         }
 
-        // Optional: Add a method to find persons by first and last name
-        public Person FindByName(string firstName, string lastName)
+        // Optional: Add a method to find stadiums by name
+        public Stadium FindByName(string name)
         {
-            Person person = null;
+            Stadium stadium = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Persons WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "SELECT * FROM Stadiums WHERE NameOfStadium = @NameOfStadium";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", firstName);
-                    cmd.Parameters.AddWithValue("@LastName", lastName);
+                    cmd.Parameters.AddWithValue("@NameOfStadium", name);
 
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            person = new Person
+                            stadium = new Stadium
                             {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                                NameOfStadium = reader.GetString(reader.GetOrdinal("NameOfStadium")),
+                                Location = reader.GetString(reader.GetOrdinal("Location")),
+                                NbCourts = reader.GetInt32(reader.GetOrdinal("NbCourts"))
                             };
                         }
                     }
@@ -152,7 +146,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 throw new Exception("An SQL error occurred!", ex);
             }
-            return person;
+            return stadium;
         }
     }
 }

@@ -8,25 +8,22 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.DAO
 {
-    internal class PersonDAO : DAO<Person>
+    internal class OpponentDAO : DAO<Opponent>
     {
-        public PersonDAO() : base()
+        public OpponentDAO() : base()
         {
-            //
+            // 
         }
 
-        public override bool Create(Person person)
+        public override bool Create(Opponent opponent)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "INSERT INTO Persons (FirstName, LastName, Nationality, GenderType) VALUES (@FirstName, @LastName, @Nationality, @GenderType)";
+                    string query = "INSERT INTO Opponents (Name) VALUES (@Name)";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
-                    cmd.Parameters.AddWithValue("@Nationality", person.Nationality);
-                    cmd.Parameters.AddWithValue("@GenderType", person.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@Name", opponent.Name);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -39,16 +36,15 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override bool Delete(Person person)
+        public override bool Delete(Opponent opponent)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "DELETE FROM Persons WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "DELETE FROM Opponents WHERE Name = @Name";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
+                    cmd.Parameters.AddWithValue("@Name", opponent.Name);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -61,18 +57,16 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override bool Update(Person person)
+        public override bool Update(Opponent opponent)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "UPDATE Persons SET Nationality = @Nationality, GenderType = @GenderType WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "UPDATE Opponents SET Name = @Name WHERE Name = @OldName";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
-                    cmd.Parameters.AddWithValue("@Nationality", person.Nationality);
-                    cmd.Parameters.AddWithValue("@GenderType", person.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@Name", opponent.Name);
+                    cmd.Parameters.AddWithValue("@OldName", opponent.Name);  // Adjust as necessary
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -85,28 +79,25 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override Person Find(int id)
+        public override Opponent Find(int id)
         {
-            Person person = null;
+            Opponent opponent = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Persons WHERE IdPerson = @IdPerson";
+                    string query = "SELECT * FROM Opponents WHERE IdOpponent = @IdOpponent";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdPerson", id);
+                    cmd.Parameters.AddWithValue("@IdOpponent", id);
 
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            person = new Person
+                            opponent = new Opponent
                             {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
                             };
                         }
                     }
@@ -116,33 +107,29 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 throw new Exception("An SQL error occurred!", ex);
             }
-            return person;
+            return opponent;
         }
 
-        // Optional: Add a method to find persons by first and last name
-        public Person FindByName(string firstName, string lastName)
+        // Optional: Add a method to find opponents by name
+        public Opponent FindByName(string name)
         {
-            Person person = null;
+            Opponent opponent = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Persons WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "SELECT * FROM Opponents WHERE Name = @Name";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", firstName);
-                    cmd.Parameters.AddWithValue("@LastName", lastName);
+                    cmd.Parameters.AddWithValue("@Name", name);
 
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            person = new Person
+                            opponent = new Opponent
                             {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
                             };
                         }
                     }
@@ -152,7 +139,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 throw new Exception("An SQL error occurred!", ex);
             }
-            return person;
+            return opponent;
         }
     }
 }

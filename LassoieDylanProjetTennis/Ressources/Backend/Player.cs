@@ -8,6 +8,6 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 {
     class Player : Person
     {
-        private int Rank { get; set; }
+        public int Rank { get; set; }
     }
 }

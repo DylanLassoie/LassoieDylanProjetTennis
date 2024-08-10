@@ -8,104 +8,157 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.DAO
 {
-    internal class RefereeDAO : IRefereeDAO
+    internal class RefereeDAO : DAO<Referee>
     {
-        private readonly string _connectionString;
-
-        public RefereeDAO(string connectionString)
+        public RefereeDAO() : base()
         {
-            _connectionString = connectionString;
+            //
         }
 
-        public void Add(Referee referee)
+        public override bool Create(Referee referee)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                var command = new SqlCommand("INSERT INTO Referee (FirstName, LastName, League) VALUES (@FirstName, @LastName, @League)", connection);
-                command.Parameters.AddWithValue("@FirstName", referee.FirstName);
-                command.Parameters.AddWithValue("@LastName", referee.LastName);
-                command.Parameters.AddWithValue("@League", referee.League);
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    string query = "INSERT INTO Referees (FirstName, LastName, Nationality, GenderType, League) " +
+                                   "VALUES (@FirstName, @LastName, @Nationality, @GenderType, @League)";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", referee.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", referee.LastName);
+                    cmd.Parameters.AddWithValue("@Nationality", referee.Nationality);
+                    cmd.Parameters.AddWithValue("@GenderType", referee.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@League", referee.League);
 
-                connection.Open();
-                command.ExecuteNonQuery();
+                    connection.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
             }
         }
 
-        public Referee Get(string firstName, string lastName)
+        public override bool Delete(Referee referee)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                var command = new SqlCommand("SELECT * FROM Referee WHERE FirstName = @FirstName AND LastName = @LastName", connection);
-                command.Parameters.AddWithValue("@FirstName", firstName);
-                command.Parameters.AddWithValue("@LastName", lastName);
-
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    if (reader.Read())
+                    string query = "DELETE FROM Referees WHERE FirstName = @FirstName AND LastName = @LastName";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", referee.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", referee.LastName);
+
+                    connection.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+        }
+
+        public override bool Update(Referee referee)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    string query = "UPDATE Referees SET Nationality = @Nationality, GenderType = @GenderType, League = @League " +
+                                   "WHERE FirstName = @FirstName AND LastName = @LastName";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", referee.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", referee.LastName);
+                    cmd.Parameters.AddWithValue("@Nationality", referee.Nationality);
+                    cmd.Parameters.AddWithValue("@GenderType", referee.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@League", referee.League);
+
+                    connection.Open();
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+        }
+
+        public override Referee Find(int id)
+        {
+            Referee referee = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    string query = "SELECT * FROM Referees WHERE IdReferee = @IdReferee";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@IdReferee", id);
+
+                    connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        return new Referee
+                        if (reader.Read())
                         {
-                            FirstName = reader["FirstName"].ToString(),
-                            LastName = reader["LastName"].ToString(),
-                            League = reader["League"].ToString()
-                        };
+                            referee = new Referee
+                            {
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
+                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType"))),
+                                League = reader.GetString(reader.GetOrdinal("League"))
+                            };
+                        }
                     }
                 }
             }
-            return null;
-        }
-
-        public void Update(Referee referee)
-        {
-            using (var connection = new SqlConnection(_connectionString))
+            catch (SqlException ex)
             {
-                var command = new SqlCommand("UPDATE Referee SET League = @League WHERE FirstName = @FirstName AND LastName = @LastName", connection);
-                command.Parameters.AddWithValue("@FirstName", referee.FirstName);
-                command.Parameters.AddWithValue("@LastName", referee.LastName);
-                command.Parameters.AddWithValue("@League", referee.League);
-
-                connection.Open();
-                command.ExecuteNonQuery();
+                throw new Exception("An SQL error occurred!", ex);
             }
+            return referee;
         }
 
-        public void Delete(string firstName, string lastName)
+        // Optional: Add a method to find referees by name
+        public Referee FindByName(string firstName, string lastName)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            Referee referee = null;
+            try
             {
-                var command = new SqlCommand("DELETE FROM Referee WHERE FirstName = @FirstName AND LastName = @LastName", connection);
-                command.Parameters.AddWithValue("@FirstName", firstName);
-                command.Parameters.AddWithValue("@LastName", lastName);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public IEnumerable<Referee> GetAll()
-        {
-            var referees = new List<Referee>();
-
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var command = new SqlCommand("SELECT * FROM Referee", connection);
-
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    while (reader.Read())
+                    string query = "SELECT * FROM Referees WHERE FirstName = @FirstName AND LastName = @LastName";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@FirstName", firstName);
+                    cmd.Parameters.AddWithValue("@LastName", lastName);
+
+                    connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        referees.Add(new Referee
+                        if (reader.Read())
                         {
-                            FirstName = reader["FirstName"].ToString(),
-                            LastName = reader["LastName"].ToString(),
-                            League = reader["League"].ToString()
-                        });
+                            referee = new Referee
+                            {
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
+                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType"))),
+                                League = reader.GetString(reader.GetOrdinal("League"))
+                            };
+                        }
                     }
                 }
             }
-            return referees;
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+            return referee;
         }
     }
 }

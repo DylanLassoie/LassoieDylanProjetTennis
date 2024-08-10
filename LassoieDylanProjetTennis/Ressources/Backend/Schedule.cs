@@ -17,8 +17,8 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
     class Schedule
     {
-        private ScheduleType ScheduleType { get; set; }
-        private int ActualRound { get; set; }
+        public ScheduleType ScheduleType { get; set; }
+        public int ActualRound { get; set; }
 
         public int NbWinningSets() 
         {

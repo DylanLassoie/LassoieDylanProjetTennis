@@ -8,5 +8,6 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 {
     class Opponent
     {
+        public string Name { get; set; }
     }
 }

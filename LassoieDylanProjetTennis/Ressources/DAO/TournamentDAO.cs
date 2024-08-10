@@ -8,25 +8,24 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.DAO
 {
-    internal class PersonDAO : DAO<Person>
+    internal class TournamentDAO : DAO<Tournament>
     {
-        public PersonDAO() : base()
+        public TournamentDAO() : base()
         {
             //
         }
 
-        public override bool Create(Person person)
+        public override bool Create(Tournament tournament)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "INSERT INTO Persons (FirstName, LastName, Nationality, GenderType) VALUES (@FirstName, @LastName, @Nationality, @GenderType)";
+                    string query = "INSERT INTO Tournaments (Name, StartingDate, EndingDate) VALUES (@Name, @StartingDate, @EndingDate)";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
-                    cmd.Parameters.AddWithValue("@Nationality", person.Nationality);
-                    cmd.Parameters.AddWithValue("@GenderType", person.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@Name", tournament.Name);
+                    cmd.Parameters.AddWithValue("@StartingDate", tournament.StartingDate);
+                    cmd.Parameters.AddWithValue("@EndingDate", tournament.EndingDate);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -39,16 +38,15 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override bool Delete(Person person)
+        public override bool Delete(Tournament tournament)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "DELETE FROM Persons WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "DELETE FROM Tournaments WHERE Name = @Name";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
+                    cmd.Parameters.AddWithValue("@Name", tournament.Name);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -61,18 +59,17 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override bool Update(Person person)
+        public override bool Update(Tournament tournament)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "UPDATE Persons SET Nationality = @Nationality, GenderType = @GenderType WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "UPDATE Tournaments SET StartingDate = @StartingDate, EndingDate = @EndingDate WHERE Name = @Name";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
-                    cmd.Parameters.AddWithValue("@Nationality", person.Nationality);
-                    cmd.Parameters.AddWithValue("@GenderType", person.GenderType.ToString());
+                    cmd.Parameters.AddWithValue("@Name", tournament.Name);
+                    cmd.Parameters.AddWithValue("@StartingDate", tournament.StartingDate);
+                    cmd.Parameters.AddWithValue("@EndingDate", tournament.EndingDate);
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -85,28 +82,27 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
         }
 
-        public override Person Find(int id)
+        public override Tournament Find(int id)
         {
-            Person person = null;
+            Tournament tournament = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Persons WHERE IdPerson = @IdPerson";
+                    string query = "SELECT * FROM Tournaments WHERE IdTournament = @IdTournament";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdPerson", id);
+                    cmd.Parameters.AddWithValue("@IdTournament", id);
 
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            person = new Person
+                            tournament = new Tournament
                             {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                StartingDate = reader.GetDateTime(reader.GetOrdinal("StartingDate")),
+                                EndingDate = reader.GetDateTime(reader.GetOrdinal("EndingDate"))
                             };
                         }
                     }
@@ -116,33 +112,31 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 throw new Exception("An SQL error occurred!", ex);
             }
-            return person;
+            return tournament;
         }
 
-        // Optional: Add a method to find persons by first and last name
-        public Person FindByName(string firstName, string lastName)
+        // Optional: Add a method to find tournaments by name
+        public Tournament FindByName(string name)
         {
-            Person person = null;
+            Tournament tournament = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Persons WHERE FirstName = @FirstName AND LastName = @LastName";
+                    string query = "SELECT * FROM Tournaments WHERE Name = @Name";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@FirstName", firstName);
-                    cmd.Parameters.AddWithValue("@LastName", lastName);
+                    cmd.Parameters.AddWithValue("@Name", name);
 
                     connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            person = new Person
+                            tournament = new Tournament
                             {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                StartingDate = reader.GetDateTime(reader.GetOrdinal("StartingDate")),
+                                EndingDate = reader.GetDateTime(reader.GetOrdinal("EndingDate"))
                             };
                         }
                     }
@@ -152,7 +146,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 throw new Exception("An SQL error occurred!", ex);
             }
-            return person;
+            return tournament;
         }
     }
 }

@@ -8,6 +8,6 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 {
     class Referee : Person
     {
-        private String League { get; set; }
+        public String League { get; set; }
     }
 }
