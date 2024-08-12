@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LassoieDylanProjetTennis.Ressources.Backend;
+using LassoieDylanProjetTennis.Ressources.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,28 +18,28 @@ using System.Windows.Shapes;
 namespace LassoieDylanProjetTennis.Ressources.Views
 {
     /// <summary>
-    /// Logique d'interaction pour PlayersView.xaml
+    /// Logique d'interaction pour StadiumView.xaml
     /// </summary>
-    public partial class PlayerView : Page
+    public partial class StadiumView : Page
     {
-        public PlayerView()
+        public StadiumView()
         {
             InitializeComponent();
         }
 
         private void LoadReferee()
         {
-
+            
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

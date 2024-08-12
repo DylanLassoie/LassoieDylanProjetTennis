@@ -9,6 +9,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Ressources/Themes/MainWindowStyle.xaml"/>
                 <ResourceDictionary Source="/Ressources/Themes/HomeStyle.xaml"/>
+                <ResourceDictionary Source="/Ressources/Themes/StadiumStyle.xaml"/>
+                <ResourceDictionary Source="/Ressources/Themes/PlayerStyle.xaml"/>
                 <ResourceDictionary Source="/Ressources/Themes/RefereeStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
