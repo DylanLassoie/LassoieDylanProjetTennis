@@ -18,9 +18,9 @@ namespace LassoieDylanProjetTennis.Ressources.Views
     /// <summary>
     /// Logique d'interaction pour PlayersView.xaml
     /// </summary>
-    public partial class PlayersView : Page
+    public partial class PlayerView : Page
     {
-        public PlayersView()
+        public PlayerView()
         {
             InitializeComponent();
         }

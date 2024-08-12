@@ -1,5 +1,6 @@
 ﻿using LassoieDylanProjetTennis.Ressources.Backend;
 using LassoieDylanProjetTennis.Ressources.DAO;
+using LassoieDylanProjetTennis.Ressources.Factory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,22 +23,30 @@ namespace LassoieDylanProjetTennis.Ressources.Views
     /// <summary>
     /// Logique d'interaction pour RefereesView.xaml
     /// </summary>
-    public partial class RefereesView : Page
+    public partial class RefereeView : Page
     {
+        private AbstractDAOFactory daoFactory;
         private readonly RefereeDAO _refereeDao;
         private ObservableCollection<Referee> _referees;
-        public RefereesView()
+        public RefereeView()
         {
             InitializeComponent();
             string connectionString = ConfigurationManager.ConnectionStrings["LassoieDylan"].ConnectionString;
-            
 
-            LoadReferees();
+            daoFactory = AbstractDAOFactory.GetFactory(DAOFactoryType.MS_SQL_FACTORY);
+            LoadReferee();
         }
 
-        private void LoadReferees()
+        private void LoadReferee()
         {
-           
+            // Retrieve the RefereeDAO from the factory
+            DAO<Referee> refereeDAO = daoFactory.GetRefereeDAO();
+
+            // Use the GetAll method to retrieve all referees
+            List<Referee> referees = ((RefereeDAO)refereeDAO).GetAll();
+
+            // Bind directly to the DataGrid
+            RefereeDataGrid.ItemsSource = referees;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -51,14 +60,14 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (TournamentsDataGrid.SelectedItem is Referee selectedReferee)
+            if (RefereeDataGrid.SelectedItem is Referee selectedReferee)
             {
                 // Implement logic to edit the selected referee
                 // For example, show a dialog with current details pre-filled, then:
                 // selectedReferee.League = ...; // get updated value from dialog
                 // _refereeDao.Update(selectedReferee);
                 // Refresh the DataGrid to reflect changes
-                LoadReferees();
+                LoadReferee();
             }
         }
 

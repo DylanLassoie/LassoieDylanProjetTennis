@@ -28,10 +28,10 @@ namespace LassoieDylanProjetTennis
                         MainFrame.Navigate(new TestTableauCRUD());
                         break;
                     case "Players":
-                        MainFrame.Navigate(new PlayersView());
+                        MainFrame.Navigate(new PlayerView());
                         break;
                     case "Referees":
-                        MainFrame.Navigate(new RefereesView());
+                        MainFrame.Navigate(new RefereeView());
                         break;
                 }
             }
