@@ -16,8 +16,17 @@ namespace LassoieDylanProjetTennis.Ressources.Factory
 
     abstract class AbstractDAOFactory
     {
+        public abstract DAO<Court> GetCourtDAO();
+        public abstract DAO<Match> GetMatchDAO();
+        public abstract DAO<Opponent> GetOpponentDAO();
         public abstract DAO<Person> GetPersonDAO();
+        public abstract DAO<Player> GetPlayerDAO();
         public abstract DAO<Referee> GetRefereeDAO();
+        public abstract DAO<Schedule> GetScheduleDAO();
+        public abstract DAO<Set> GetSetDAO();
+        public abstract DAO<Stadium> GetStadiumDAO();
+        public abstract DAO<SuperTieBreak> GetSuperTieBreakDAO();
+        public abstract DAO<Tournament> GetTournamentDAO();
 
         public static AbstractDAOFactory GetFactory(DAOFactoryType type)
         {
