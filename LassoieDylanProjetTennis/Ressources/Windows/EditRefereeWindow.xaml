@@ -1,0 +1,32 @@
+﻿<Window x:Class="LassoieDylanProjetTennis.Ressources.Windows.EditRefereeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Windows"
+        mc:Ignorable="d"
+        Title="EditRefereeWindow" Height="450" Width="800">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="First Name:" Style="{StaticResource LabelTextBlockStyle}"/>
+            <TextBox x:Name="FirstNameTextBox" Text="{Binding FirstName}" IsReadOnly="True" Style="{StaticResource InputTextBoxStyle}"/>
+
+            <TextBlock Text="Last Name:" Style="{StaticResource LabelTextBlockStyle}"/>
+            <TextBox x:Name="LastNameTextBox" Text="{Binding LastName}" IsReadOnly="True" Style="{StaticResource InputTextBoxStyle}"/>
+
+            <TextBlock Text="Nationality:" Style="{StaticResource LabelTextBlockStyle}"/>
+            <TextBox x:Name="NationalityTextBox" Text="{Binding Nationality}" Style="{StaticResource InputTextBoxStyle}"/>
+
+            <TextBlock Text="Gender:" Style="{StaticResource LabelTextBlockStyle}"/>
+            <ComboBox x:Name="GenderTypeComboBox" SelectedValue="{Binding GenderType}" Style="{StaticResource InputComboBoxStyle}">
+                <ComboBoxItem Content="Male" />
+                <ComboBoxItem Content="Female" />
+            </ComboBox>
+
+            <TextBlock Text="League:" Style="{StaticResource LabelTextBlockStyle}"/>
+            <TextBox x:Name="LeagueTextBox" Text="{Binding League}" Style="{StaticResource InputTextBoxStyle}"/>
+
+            <Button Content="Save" Style="{StaticResource PrimaryButtonStyle}" Click="SaveButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

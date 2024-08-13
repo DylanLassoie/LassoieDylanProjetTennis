@@ -12,7 +12,7 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
         Female
     }
 
-    class Person
+    public class Person
     {
         public String FirstName { get; set; }
         public String LastName { get; set; }

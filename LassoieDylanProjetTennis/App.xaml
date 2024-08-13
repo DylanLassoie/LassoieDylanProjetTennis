@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="/Ressources/Themes/StadiumStyle.xaml"/>
                 <ResourceDictionary Source="/Ressources/Themes/PlayerStyle.xaml"/>
                 <ResourceDictionary Source="/Ressources/Themes/RefereeStyle.xaml"/>
+                <ResourceDictionary Source="/Ressources/Themes/AddDialogStyle.xaml"/>
+                <ResourceDictionary Source="/Ressources/Themes/EditDialogStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         
