@@ -115,6 +115,12 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             return stadium;
         }
 
+        public override List<Stadium> GetAll()
+        {
+            List<Stadium> stadiums = new List<Stadium>();
+            return stadiums;
+        }
+
         // Optional: Add a method to find stadiums by name
         public Stadium FindByName(string name)
         {

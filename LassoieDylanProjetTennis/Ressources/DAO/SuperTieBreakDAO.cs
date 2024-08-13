@@ -113,5 +113,11 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
             return superTieBreak;
         }
+
+        public override List<SuperTieBreak> GetAll()
+        {
+            List<SuperTieBreak> superTieBreaks = new List<SuperTieBreak>();
+            return superTieBreaks;
+        }
     }
 }

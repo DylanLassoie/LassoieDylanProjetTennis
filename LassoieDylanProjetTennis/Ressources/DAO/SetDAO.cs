@@ -113,5 +113,11 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
             return set;
         }
+
+        public override List<Set> GetAll()
+        {
+            List<Set> sets = new List<Set>();
+            return sets;
+        }
     }
 }

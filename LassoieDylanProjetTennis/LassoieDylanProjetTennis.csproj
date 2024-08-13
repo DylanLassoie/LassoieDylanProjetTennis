@@ -9,27 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Ressources\Fonts\Poppins-Black.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-BlackItalic.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-Bold.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-BoldItalic.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-ExtraBold.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-ExtraBoldItalic.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-ExtraLight.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-ExtraLightItalic.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-Italic.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-Light.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-LightItalic.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-Medium.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-MediumItalic.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-Regular.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-SemiBold.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-SemiBoldItalic.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-Thin.ttf" />
-	  <None Remove="Ressources\Fonts\Poppins-ThinItalic.ttf" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="ADO.Net.Client.Core" Version="1.4.5" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	</ItemGroup>

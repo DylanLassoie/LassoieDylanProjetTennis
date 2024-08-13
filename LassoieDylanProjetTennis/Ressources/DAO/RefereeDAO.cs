@@ -124,6 +124,43 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             return referee;
         }
 
+        public override List<Referee> GetAll()
+        {
+            List<Referee> referees = new List<Referee>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    string query = "SELECT * FROM Referee";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    connection.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Referee referee = new Referee
+                            {
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+
+                                League = reader.GetString(reader.GetOrdinal("League"))
+                            };
+
+                            referees.Add(referee);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+
+            return referees;
+        }
+
         // Optional: Add a method to find referees by name
         public Referee FindByName(string firstName, string lastName)
         {
@@ -159,43 +196,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                 throw new Exception("An SQL error occurred!", ex);
             }
             return referee;
-        }
-
-        public List<Referee> GetAll()
-        {
-            List<Referee> referees = new List<Referee>();
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(this.connectionString))
-                {
-                    string query = "SELECT * FROM Referee";
-                    SqlCommand cmd = new SqlCommand(query, connection);
-                    connection.Open();
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Referee referee = new Referee
-                            {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                
-                                League = reader.GetString(reader.GetOrdinal("League"))
-                            };
-
-                            referees.Add(referee);
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("An SQL error occurred!", ex);
-            }
-
-            return referees;
         }
     }
 }

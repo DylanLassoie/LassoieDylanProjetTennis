@@ -116,5 +116,11 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
             return court;
         }
+
+        public override List<Court> GetAll()
+        {
+            List<Court> courts = new List<Court>();
+            return courts;
+        }
     }
 }

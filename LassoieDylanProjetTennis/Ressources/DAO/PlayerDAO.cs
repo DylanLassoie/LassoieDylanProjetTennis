@@ -124,6 +124,12 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             return player;
         }
 
+        public override List<Player> GetAll()
+        {
+            List<Player> players = new List<Player>();
+            return players;
+        }
+
         // Optional: Add a method to find players by name
         public Player FindByName(string firstName, string lastName)
         {

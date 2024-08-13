@@ -115,6 +115,12 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             return tournament;
         }
 
+        public override List<Tournament> GetAll()
+        {
+            List<Tournament> tournaments = new List<Tournament>();
+            return tournaments;
+        }
+
         // Optional: Add a method to find tournaments by name
         public Tournament FindByName(string name)
         {

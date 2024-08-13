@@ -113,6 +113,12 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             return schedule;
         }
 
+        public override List<Schedule> GetAll()
+        {
+            List<Schedule> Schedules = new List<Schedule>();
+            return Schedules;
+        }
+
         // Optional: Add a method to find schedules by ScheduleType
         public Schedule FindByType(ScheduleType scheduleType)
         {

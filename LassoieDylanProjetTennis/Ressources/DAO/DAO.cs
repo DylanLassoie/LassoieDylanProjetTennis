@@ -18,6 +18,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
         public abstract bool Delete(T obj);
         public abstract bool Update(T obj);
         public abstract T Find(int id);
+        public abstract List<T> GetAll();
 
     }
 }
