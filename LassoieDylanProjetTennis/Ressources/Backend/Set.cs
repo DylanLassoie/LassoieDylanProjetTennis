@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    internal class Set
+    public class Set
     {
         public int IdSet { get; set; }
         public int ScoreOp1 {  get; set; }

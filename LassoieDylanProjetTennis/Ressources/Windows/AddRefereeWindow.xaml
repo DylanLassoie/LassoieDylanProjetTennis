@@ -5,27 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Views"
         mc:Ignorable="d"
-        Title="AddRefereeWindow" Height="450" Width="800">
+        Title="AddRefereeWindow" Height="600" Width="800">
     <Grid Margin="10">
         <StackPanel>
-            <TextBlock Text="First Name:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="FirstNameTextBox" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="First Name:" Style="{StaticResource AddLabelTextBlockStyle}"/>
+            <TextBox x:Name="FirstNameTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
 
-            <TextBlock Text="Last Name:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="LastNameTextBox" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="Last Name:" Style="{StaticResource AddLabelTextBlockStyle}"/>
+            <TextBox x:Name="LastNameTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
 
-            <TextBlock Text="Nationality:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="NationalityTextBox" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="Nationality:" Style="{StaticResource AddLabelTextBlockStyle}"/>
+            <TextBox x:Name="NationalityTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
 
-            <TextBlock Text="Gender:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <ComboBox x:Name="GenderTypeComboBox" Style="{StaticResource InputComboBoxStyle}">
+            <TextBlock Text="Gender:" Style="{StaticResource AddLabelTextBlockStyle}"/>
+            <ComboBox x:Name="GenderTypeComboBox" Style="{StaticResource AddInputComboBoxStyle}">
                 <ComboBoxItem Content="Male" />
                 <ComboBoxItem Content="Female" />
             </ComboBox>
 
-            <TextBlock Text="League:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="LeagueTextBox" Style="{StaticResource InputTextBoxStyle}"/>
-            <Button Content="Add" Style="{StaticResource PrimaryButtonStyle}" Click="AddButton_Click"/>
+            <TextBlock Text="League:" Style="{StaticResource AddLabelTextBlockStyle}"/>
+            <TextBox x:Name="LeagueTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
+            <Button Content="Add" Style="{StaticResource AddPrimaryButtonStyle}" Click="AddButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

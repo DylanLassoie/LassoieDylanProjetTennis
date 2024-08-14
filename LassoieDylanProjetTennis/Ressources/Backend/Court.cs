@@ -14,7 +14,7 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
         Artificial
     }
 
-    class Court
+    public class Court
     {
         public int IdCourt { get; set; }
         public CourtType CourtType { get; set; }

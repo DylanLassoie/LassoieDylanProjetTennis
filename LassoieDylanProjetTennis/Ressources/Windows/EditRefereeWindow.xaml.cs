@@ -20,21 +20,23 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
     /// </summary>
     public partial class EditRefereeWindow : Window
     {
+        private Referee _originalReferee;
+
         public EditRefereeWindow(Referee referee)
         {
             InitializeComponent();
 
-            // Populate the fields with the existing referee details
-            FirstNameTextBox.Text = referee.FirstName;
-            LastNameTextBox.Text = referee.LastName;
-            NationalityTextBox.Text = referee.Nationality;
+            _originalReferee = referee;
+            DataContext = _originalReferee; // Assurez-vous que le DataContext est bien assigné
+
+            // Initialiser les champs avec les valeurs actuelles
+            FirstNameTextBox.Text = _originalReferee.FirstName;
+            LastNameTextBox.Text = _originalReferee.LastName;
+            NationalityTextBox.Text = _originalReferee.Nationality;
             GenderTypeComboBox.SelectedItem = GenderTypeComboBox.Items
                 .Cast<ComboBoxItem>()
-                .FirstOrDefault(item => item.Content.ToString() == referee.GenderType.ToString());
-            LeagueTextBox.Text = referee.League;
-
-            // Store the original referee object in the Tag for later retrieval
-            this.Tag = referee;
+                .FirstOrDefault(item => item.Content.ToString() == _originalReferee.GenderType.ToString());
+            LeagueTextBox.Text = _originalReferee.League;
         }
 
         private void RankTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -45,29 +47,23 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve user input
-            string firstName = FirstNameTextBox.Text;
-            string lastName = LastNameTextBox.Text;
+            // Validation de base
             string nationality = NationalityTextBox.Text;
             string genderType = (GenderTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string league = LeagueTextBox.Text;
 
-            // Basic validation (ensure all fields are filled)
             if (string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(genderType) || string.IsNullOrEmpty(league))
             {
                 MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Get the original referee object
-            Referee originalReferee = this.Tag as Referee;
+            // Mise à jour des propriétés du referee
+            _originalReferee.Nationality = nationality;
+            _originalReferee.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
+            _originalReferee.League = league;
 
-            // Update the referee details
-            originalReferee.Nationality = nationality;
-            originalReferee.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
-            originalReferee.League = league;
-
-            // Set the DialogResult to true and close the dialog
+            // Fermer la fenêtre avec DialogResult à true
             this.DialogResult = true;
             this.Close();
         }

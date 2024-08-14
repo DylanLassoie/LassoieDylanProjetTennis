@@ -20,55 +20,50 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
     /// </summary>
     public partial class EditPlayerWindow : Window
     {
+
+        private Player _player;
+
         public EditPlayerWindow(Player player)
         {
             InitializeComponent();
+            _player = player;
+            DataContext = _player; // Assurez-vous que le DataContext est bien assigné
 
-            // Populate the fields with the existing player details
-            FirstNameTextBox.Text = player.FirstName;
-            LastNameTextBox.Text = player.LastName;
-            NationalityTextBox.Text = player.Nationality;
+            // Initialiser les champs avec les valeurs actuelles
+            FirstNameTextBox.Text = _player.FirstName;
+            LastNameTextBox.Text = _player.LastName;
+            NationalityTextBox.Text = _player.Nationality;
             GenderTypeComboBox.SelectedItem = GenderTypeComboBox.Items
                 .Cast<ComboBoxItem>()
-                .FirstOrDefault(item => item.Content.ToString() == player.GenderType.ToString());
-            RankTextBox.Text = player.Rank.ToString();
-
-            // Store the original player object in the Tag for later retrieval
-            this.Tag = player;
+                .FirstOrDefault(item => item.Content.ToString() == _player.GenderType.ToString());
+            RankTextBox.Text = _player.Rank.ToString();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve user input
-            string firstName = FirstNameTextBox.Text;
-            string lastName = LastNameTextBox.Text;
+            // Validation de base
             string nationality = NationalityTextBox.Text;
             string genderType = (GenderTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string rankText = RankTextBox.Text;
 
-            // Basic validation (ensure all fields are filled)
             if (string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(genderType) || string.IsNullOrEmpty(rankText))
             {
                 MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Ensure rank is a valid integer
             if (!int.TryParse(rankText, out int rank))
             {
                 MessageBox.Show("Rank must be a valid number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Get the original player object
-            Player originalPlayer = this.Tag as Player;
+            // Mise à jour des propriétés du joueur
+            _player.Nationality = nationality;
+            _player.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
+            _player.Rank = rank;
 
-            // Update the player details
-            originalPlayer.Nationality = nationality;
-            originalPlayer.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
-            originalPlayer.Rank = rank;
-
-            // Set the DialogResult to true and close the dialog
+            // Fermer la fenêtre avec DialogResult à true
             this.DialogResult = true;
             this.Close();
         }

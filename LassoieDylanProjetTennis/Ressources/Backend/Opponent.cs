@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    class Opponent
+    public class Opponent
     {
         public string Name { get; set; }
     }

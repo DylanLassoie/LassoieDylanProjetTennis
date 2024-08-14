@@ -15,7 +15,7 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
         MixedDouble
     }
 
-    class Schedule
+    public class Schedule
     {
         public ScheduleType ScheduleType { get; set; }
         public int ActualRound { get; set; }

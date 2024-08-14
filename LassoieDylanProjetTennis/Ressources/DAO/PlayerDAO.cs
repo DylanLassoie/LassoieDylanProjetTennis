@@ -200,35 +200,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
         public override Player Find(int id)
         {
             Player player = null;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(this.connectionString))
-                {
-                    string query = "SELECT * FROM Players WHERE IdPlayer = @IdPlayer";
-                    SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdPlayer", id);
-
-                    connection.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            player = new Player
-                            {
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType"))),
-                                Rank = reader.GetInt32(reader.GetOrdinal("Rank"))
-                            };
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("An SQL error occurred!", ex);
-            }
             return player;
         }
 

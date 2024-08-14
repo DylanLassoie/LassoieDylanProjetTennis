@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Windows"
         mc:Ignorable="d"
-        Title="EditStadiumWindow" Height="450" Width="800">
+        Title="EditStadiumWindow" Height="600" Width="800">
     <Grid Margin="10">
         <StackPanel>
-            <TextBlock Text="Name of Stadium:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="NameOfStadiumTextBox" Text="{Binding NameOfStadium}" IsReadOnly="True" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="Name of Stadium:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+            <TextBox x:Name="NameOfStadiumTextBox" Text="{Binding NameOfStadium}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Location:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="LocationTextBox" Text="{Binding Location}" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="Location:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+            <TextBox x:Name="LocationTextBox" Text="{Binding Location}" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Number of Courts:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="NbCourtsTextBox" Text="{Binding NbCourts}" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="Number of Courts:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+            <TextBox x:Name="NbCourtsTextBox" Text="{Binding NbCourts}" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <Button Content="Save" Style="{StaticResource PrimaryButtonStyle}" Click="SaveButton_Click"/>
+            <Button Content="Save" Style="{StaticResource EditPrimaryButtonStyle}" Click="SaveButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

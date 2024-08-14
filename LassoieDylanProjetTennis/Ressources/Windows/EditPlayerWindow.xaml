@@ -5,28 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Windows"
         mc:Ignorable="d"
-        Title="EditPlayerWindow" Height="450" Width="800">
+        Title="EditPlayerWindow" Height="600" Width="800">
     <Grid Margin="10">
         <StackPanel>
-            <TextBlock Text="First Name:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="FirstNameTextBox" Text="{Binding FirstName}" IsReadOnly="True" Style="{StaticResource InputTextBoxStyle}"/>
 
-            <TextBlock Text="Last Name:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="LastNameTextBox" Text="{Binding LastName}" IsReadOnly="True" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="First Name:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+            <TextBox x:Name="FirstNameTextBox" Text="{Binding FirstName}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Nationality:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="NationalityTextBox" Text="{Binding Nationality}" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="Last Name:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+            <TextBox x:Name="LastNameTextBox" Text="{Binding LastName}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
+            <TextBlock Text="Nationality:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+            <TextBox x:Name="NationalityTextBox" Text="{Binding Nationality}" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Gender:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <ComboBox x:Name="GenderTypeComboBox" SelectedValue="{Binding GenderType}" Style="{StaticResource InputComboBoxStyle}">
+            <TextBlock Text="Gender:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+            <ComboBox x:Name="GenderTypeComboBox" SelectedValue="{Binding GenderType}" Style="{StaticResource EditInputComboBoxStyle}">
                 <ComboBoxItem Content="Male" />
                 <ComboBoxItem Content="Female" />
             </ComboBox>
 
-            <TextBlock Text="Rank:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="RankTextBox" Text="{Binding Rank}" Style="{StaticResource InputTextBoxStyle}" />
+            <TextBlock Text="Rank:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+            <TextBox x:Name="RankTextBox" Text="{Binding Rank}" Style="{StaticResource EditInputTextBoxStyle}" />
 
-            <Button Content="Save" Style="{StaticResource PrimaryButtonStyle}" Click="SaveButton_Click"/>
+            <Button Content="Save" Style="{StaticResource EditPrimaryButtonStyle}" Click="SaveButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

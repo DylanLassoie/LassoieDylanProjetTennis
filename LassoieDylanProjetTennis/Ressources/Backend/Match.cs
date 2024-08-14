@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    class Match
+    public class Match
     {
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }

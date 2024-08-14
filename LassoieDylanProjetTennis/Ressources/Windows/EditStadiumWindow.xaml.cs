@@ -20,17 +20,19 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
     /// </summary>
     public partial class EditStadiumWindow : Window
     {
+        private Stadium _originalStadium;
+
         public EditStadiumWindow(Stadium stadium)
         {
             InitializeComponent();
 
-            // Populate the fields with the existing stadium details
-            NameOfStadiumTextBox.Text = stadium.NameOfStadium;
-            LocationTextBox.Text = stadium.Location;
-            NbCourtsTextBox.Text = stadium.NbCourts.ToString();
+            _originalStadium = stadium;
+            DataContext = _originalStadium; // Assurez-vous que le DataContext est bien assigné
 
-            // Store the original stadium object in the Tag for later retrieval
-            this.Tag = stadium;
+            // Initialiser les champs avec les valeurs actuelles
+            NameOfStadiumTextBox.Text = _originalStadium.NameOfStadium;
+            LocationTextBox.Text = _originalStadium.Location;
+            NbCourtsTextBox.Text = _originalStadium.NbCourts.ToString();
         }
 
         private void NbCourtsTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -42,7 +44,6 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Retrieve user input
-            string nameOfStadium = NameOfStadiumTextBox.Text;
             string location = LocationTextBox.Text;
             string nbCourtsText = NbCourtsTextBox.Text;
 
@@ -60,12 +61,9 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
                 return;
             }
 
-            // Get the original stadium object
-            Stadium originalStadium = this.Tag as Stadium;
-
             // Update the stadium details
-            originalStadium.Location = location;
-            originalStadium.NbCourts = nbCourts;
+            _originalStadium.Location = location;
+            _originalStadium.NbCourts = nbCourts;
 
             // Set the DialogResult to true and close the dialog
             this.DialogResult = true;

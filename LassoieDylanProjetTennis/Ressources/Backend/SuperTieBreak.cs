@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    class SuperTieBreak : Set
+    public class SuperTieBreak : Set
     {
         public int IdSuperTieBreak {  get; set; }
         public void Play() 
