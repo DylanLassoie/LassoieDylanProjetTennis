@@ -1,11 +1,11 @@
-﻿<Window x:Class="LassoieDylanProjetTennis.Ressources.Views.AddRefereeWindow"
+﻿<Window x:Class="LassoieDylanProjetTennis.Ressources.Windows.AddPlayerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Views"
+        xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Windows"
         mc:Ignorable="d"
-        Title="AddRefereeWindow" Height="450" Width="800">
+        Title="AddPlayerWindow" Height="450" Width="800">
     <Grid Margin="10">
         <StackPanel>
             <TextBlock Text="First Name:" Style="{StaticResource LabelTextBlockStyle}"/>
@@ -23,8 +23,8 @@
                 <ComboBoxItem Content="Female" />
             </ComboBox>
 
-            <TextBlock Text="League:" Style="{StaticResource LabelTextBlockStyle}"/>
-            <TextBox x:Name="LeagueTextBox" Style="{StaticResource InputTextBoxStyle}"/>
+            <TextBlock Text="Rank:" Style="{StaticResource LabelTextBlockStyle}"/>
+            <TextBox x:Name="RankTextBox" Style="{StaticResource InputTextBoxStyle}"/>
             <Button Content="Add" Style="{StaticResource PrimaryButtonStyle}" Click="AddButton_Click"/>
         </StackPanel>
     </Grid>

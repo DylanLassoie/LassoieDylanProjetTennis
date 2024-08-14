@@ -16,60 +16,63 @@ using System.Windows.Shapes;
 namespace LassoieDylanProjetTennis.Ressources.Windows
 {
     /// <summary>
-    /// Logique d'interaction pour EditRefereeWindow.xaml
+    /// Logique d'interaction pour AddPlayerWindow.xaml
     /// </summary>
-    public partial class EditRefereeWindow : Window
+    public partial class AddPlayerWindow : Window
     {
-        public EditRefereeWindow(Referee referee)
+        public AddPlayerWindow()
         {
             InitializeComponent();
-
-            // Populate the fields with the existing referee details
-            FirstNameTextBox.Text = referee.FirstName;
-            LastNameTextBox.Text = referee.LastName;
-            NationalityTextBox.Text = referee.Nationality;
-            GenderTypeComboBox.SelectedItem = GenderTypeComboBox.Items
-                .Cast<ComboBoxItem>()
-                .FirstOrDefault(item => item.Content.ToString() == referee.GenderType.ToString());
-            LeagueTextBox.Text = referee.League;
-
-            // Store the original referee object in the Tag for later retrieval
-            this.Tag = referee;
         }
-
         private void RankTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Allow only numeric input
             e.Handled = !int.TryParse(e.Text, out _);
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             // Retrieve user input
             string firstName = FirstNameTextBox.Text;
             string lastName = LastNameTextBox.Text;
             string nationality = NationalityTextBox.Text;
             string genderType = (GenderTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-            string league = LeagueTextBox.Text;
+            string rankText = RankTextBox.Text;
 
             // Basic validation (ensure all fields are filled)
-            if (string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(genderType) || string.IsNullOrEmpty(league))
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) ||
+                string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(genderType) ||
+                string.IsNullOrEmpty(rankText))
             {
                 MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Get the original referee object
-            Referee originalReferee = this.Tag as Referee;
+            // Ensure rank is a valid integer
+            if (!int.TryParse(rankText, out int rank))
+            {
+                MessageBox.Show("Rank must be a valid number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-            // Update the referee details
-            originalReferee.Nationality = nationality;
-            originalReferee.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
-            originalReferee.League = league;
+            // Create a new Player object
+            Player newPlayer = new Player
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Nationality = nationality,
+                GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType),
+                Rank = rank
+            };
 
             // Set the DialogResult to true and close the dialog
             this.DialogResult = true;
+
+            // Store the new Player object in the Tag property for retrieval
+            this.Tag = newPlayer;
+
             this.Close();
         }
+
     }
 }

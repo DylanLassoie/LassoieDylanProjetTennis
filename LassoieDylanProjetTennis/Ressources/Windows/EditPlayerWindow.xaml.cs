@@ -16,31 +16,25 @@ using System.Windows.Shapes;
 namespace LassoieDylanProjetTennis.Ressources.Windows
 {
     /// <summary>
-    /// Logique d'interaction pour EditRefereeWindow.xaml
+    /// Logique d'interaction pour EditPlayerWindow.xaml
     /// </summary>
-    public partial class EditRefereeWindow : Window
+    public partial class EditPlayerWindow : Window
     {
-        public EditRefereeWindow(Referee referee)
+        public EditPlayerWindow(Player player)
         {
             InitializeComponent();
 
-            // Populate the fields with the existing referee details
-            FirstNameTextBox.Text = referee.FirstName;
-            LastNameTextBox.Text = referee.LastName;
-            NationalityTextBox.Text = referee.Nationality;
+            // Populate the fields with the existing player details
+            FirstNameTextBox.Text = player.FirstName;
+            LastNameTextBox.Text = player.LastName;
+            NationalityTextBox.Text = player.Nationality;
             GenderTypeComboBox.SelectedItem = GenderTypeComboBox.Items
                 .Cast<ComboBoxItem>()
-                .FirstOrDefault(item => item.Content.ToString() == referee.GenderType.ToString());
-            LeagueTextBox.Text = referee.League;
+                .FirstOrDefault(item => item.Content.ToString() == player.GenderType.ToString());
+            RankTextBox.Text = player.Rank.ToString();
 
-            // Store the original referee object in the Tag for later retrieval
-            this.Tag = referee;
-        }
-
-        private void RankTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            // Allow only numeric input
-            e.Handled = !int.TryParse(e.Text, out _);
+            // Store the original player object in the Tag for later retrieval
+            this.Tag = player;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -50,22 +44,29 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
             string lastName = LastNameTextBox.Text;
             string nationality = NationalityTextBox.Text;
             string genderType = (GenderTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-            string league = LeagueTextBox.Text;
+            string rankText = RankTextBox.Text;
 
             // Basic validation (ensure all fields are filled)
-            if (string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(genderType) || string.IsNullOrEmpty(league))
+            if (string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(genderType) || string.IsNullOrEmpty(rankText))
             {
                 MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Get the original referee object
-            Referee originalReferee = this.Tag as Referee;
+            // Ensure rank is a valid integer
+            if (!int.TryParse(rankText, out int rank))
+            {
+                MessageBox.Show("Rank must be a valid number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-            // Update the referee details
-            originalReferee.Nationality = nationality;
-            originalReferee.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
-            originalReferee.League = league;
+            // Get the original player object
+            Player originalPlayer = this.Tag as Player;
+
+            // Update the player details
+            originalPlayer.Nationality = nationality;
+            originalPlayer.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
+            originalPlayer.Rank = rank;
 
             // Set the DialogResult to true and close the dialog
             this.DialogResult = true;

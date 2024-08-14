@@ -39,18 +39,6 @@ namespace LassoieDylanProjetTennis.Ressources.Views
             LoadReferee();
         }
 
-        /*private void LoadReferee()
-        {
-            // Retrieve the RefereeDAO from the factory
-            DAO<Referee> refereeDAO = daoFactory.GetRefereeDAO();
-
-            // Use the GetAll method to retrieve all referees
-            List<Referee> referees = ((RefereeDAO)refereeDAO).GetAll();
-
-            // Bind directly to the DataGrid
-            RefereeDataGrid.ItemsSource = referees;
-        }*/
-
         private void LoadReferee()
         {
             var refereeDAO = daoFactory.GetRefereeDAO();

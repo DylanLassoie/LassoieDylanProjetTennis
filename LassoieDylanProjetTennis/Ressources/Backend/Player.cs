@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    class Player : Person
+    public class Player : Person
     {
         public int Rank { get; set; }
     }
