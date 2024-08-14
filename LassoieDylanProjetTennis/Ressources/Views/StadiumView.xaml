@@ -16,7 +16,9 @@
           ItemsSource="{Binding Stadium}"
           Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName}" Width="*"/>
+                <DataGridTextColumn Header="Name Of Stadium" Binding="{Binding NameOfStadium}" Width="*"/>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*"/>
+                <DataGridTextColumn Header="Number Of Court" Binding="{Binding NbCourts}" Width="*"/>
                 <DataGridTemplateColumn Header="Actions" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

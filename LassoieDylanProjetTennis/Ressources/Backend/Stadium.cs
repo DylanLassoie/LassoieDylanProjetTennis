@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LassoieDylanProjetTennis.Ressources.Backend
 {
-    class Stadium
+    public class Stadium
     {
         public String NameOfStadium { get; set; }
         public String Location { get; set; }

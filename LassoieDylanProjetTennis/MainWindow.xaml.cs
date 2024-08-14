@@ -25,7 +25,7 @@ namespace LassoieDylanProjetTennis
                         //MainFrame.Navigate(new TestArbreView());
                         break;
                     case "Stadiums":
-                        //MainFrame.Navigate(new TestTableauCRUD());
+                        MainFrame.Navigate(new StadiumView());
                         break;
                     case "Players":
                         MainFrame.Navigate(new PlayerView());
