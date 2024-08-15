@@ -5,19 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Windows"
         mc:Ignorable="d"
-        Title="EditStadiumWindow" Height="600" Width="800">
-    <Grid Margin="10">
-        <StackPanel>
-            <TextBlock Text="Name of Stadium:" Style="{StaticResource EditLabelTextBlockStyle}"/>
-            <TextBox x:Name="NameOfStadiumTextBox" Text="{Binding NameOfStadium}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
+        Title="EditStadiumWindow" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Margin="10">
+            <StackPanel>
+                <TextBlock Text="Name of Stadium:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+                <TextBox x:Name="NameOfStadiumTextBox" Text="{Binding NameOfStadium}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Location:" Style="{StaticResource EditLabelTextBlockStyle}"/>
-            <TextBox x:Name="LocationTextBox" Text="{Binding Location}" Style="{StaticResource EditInputTextBoxStyle}"/>
+                <TextBlock Text="Location:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+                <TextBox x:Name="LocationTextBox" Text="{Binding Location}" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Number of Courts:" Style="{StaticResource EditLabelTextBlockStyle}"/>
-            <TextBox x:Name="NbCourtsTextBox" Text="{Binding NbCourts}" Style="{StaticResource EditInputTextBoxStyle}"/>
+                <TextBlock Text="Number of Courts:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+                <TextBox x:Name="NbCourtsTextBox" Text="{Binding NbCourts}" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <Button Content="Save" Style="{StaticResource EditPrimaryButtonStyle}" Click="SaveButton_Click"/>
-        </StackPanel>
-    </Grid>
+                <Button Content="Save" Style="{StaticResource EditPrimaryButtonStyle}" Click="SaveButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Window>

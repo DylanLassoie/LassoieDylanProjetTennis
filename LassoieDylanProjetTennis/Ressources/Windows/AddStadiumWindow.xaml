@@ -5,19 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Windows"
         mc:Ignorable="d"
-        Title="AddStadiumWindow" Height="600" Width="800">
-    <Grid Margin="10">
-        <StackPanel>
-            <TextBlock Text="Name of Stadium:" Style="{StaticResource AddLabelTextBlockStyle}"/>
-            <TextBox x:Name="NameOfStadiumTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
+        Title="AddStadiumWindow" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Margin="10">
+            <StackPanel>
+                <TextBlock Text="Name of Stadium:" Style="{StaticResource AddLabelTextBlockStyle}"/>
+                <TextBox x:Name="NameOfStadiumTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
 
-            <TextBlock Text="Location:" Style="{StaticResource AddLabelTextBlockStyle}"/>
-            <TextBox x:Name="LocationTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
+                <TextBlock Text="Location:" Style="{StaticResource AddLabelTextBlockStyle}"/>
+                <TextBox x:Name="LocationTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
 
-            <TextBlock Text="Number of Courts:" Style="{StaticResource AddLabelTextBlockStyle}"/>
-            <TextBox x:Name="NbCourtsTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
+                <TextBlock Text="Number of Courts:" Style="{StaticResource AddLabelTextBlockStyle}"/>
+                <TextBox x:Name="NbCourtsTextBox" Style="{StaticResource AddInputTextBoxStyle}"/>
 
-            <Button Content="Add" Style="{StaticResource AddPrimaryButtonStyle}" Click="AddButton_Click"/>
-        </StackPanel>
-    </Grid>
+                <Button Content="Add" Style="{StaticResource AddPrimaryButtonStyle}" Click="AddButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Window>

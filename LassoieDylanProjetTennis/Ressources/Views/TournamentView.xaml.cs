@@ -63,8 +63,40 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-          
+            // Open the AddTournamentDialog
+            AddTournamentWindow dialog = new AddTournamentWindow();
+            if (dialog.ShowDialog() == true)
+            {
+                // Retrieve the new Tournament object from the dialog's Tag property
+                Tournament newTournament = dialog.Tag as Tournament;
+
+                if (newTournament != null)
+                {
+                    // Add the new tournament to the database
+                    try
+                    {
+                        var tournamentDAO = daoFactory.GetTournamentDAO();
+                        bool success = tournamentDAO.Create(newTournament);
+
+                        if (success)
+                        {
+                            // Add the new tournament to the ObservableCollection
+                            _tournaments.Add(newTournament);
+                            // No need to refresh the DataGrid as ObservableCollection handles it automatically
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to add the new tournament.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
+
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {

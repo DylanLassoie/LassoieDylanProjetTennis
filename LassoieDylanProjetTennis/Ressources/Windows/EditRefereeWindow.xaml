@@ -5,28 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Windows"
         mc:Ignorable="d"
-        Title="EditRefereeWindow" Height="600" Width="800">
-    <Grid Margin="10">
-        <StackPanel>
-            <TextBlock Text="First Name:" Style="{StaticResource EditLabelTextBlockStyle}"/>
-            <TextBox x:Name="FirstNameTextBox" Text="{Binding FirstName}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
+        Title="EditRefereeWindow" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Margin="10">
+            <StackPanel>
+                <TextBlock Text="First Name:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+                <TextBox x:Name="FirstNameTextBox" Text="{Binding FirstName}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Last Name:" Style="{StaticResource EditLabelTextBlockStyle}"/>
-            <TextBox x:Name="LastNameTextBox" Text="{Binding LastName}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
+                <TextBlock Text="Last Name:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+                <TextBox x:Name="LastNameTextBox" Text="{Binding LastName}" IsReadOnly="True" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Nationality:" Style="{StaticResource EditLabelTextBlockStyle}"/>
-            <TextBox x:Name="NationalityTextBox" Text="{Binding Nationality}" Style="{StaticResource EditInputTextBoxStyle}"/>
+                <TextBlock Text="Nationality:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+                <TextBox x:Name="NationalityTextBox" Text="{Binding Nationality}" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <TextBlock Text="Gender:" Style="{StaticResource EditLabelTextBlockStyle}"/>
-            <ComboBox x:Name="GenderTypeComboBox" SelectedValue="{Binding GenderType}" Style="{StaticResource EditInputComboBoxStyle}">
-                <ComboBoxItem Content="Male" />
-                <ComboBoxItem Content="Female" />
-            </ComboBox>
+                <TextBlock Text="Gender:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+                <ComboBox x:Name="GenderTypeComboBox" SelectedValue="{Binding GenderType}" Style="{StaticResource EditInputComboBoxStyle}">
+                    <ComboBoxItem Content="Male" />
+                    <ComboBoxItem Content="Female" />
+                </ComboBox>
 
-            <TextBlock Text="League:" Style="{StaticResource EditLabelTextBlockStyle}"/>
-            <TextBox x:Name="LeagueTextBox" Text="{Binding League}" Style="{StaticResource EditInputTextBoxStyle}"/>
+                <TextBlock Text="League:" Style="{StaticResource EditLabelTextBlockStyle}"/>
+                <TextBox x:Name="LeagueTextBox" Text="{Binding League}" Style="{StaticResource EditInputTextBoxStyle}"/>
 
-            <Button Content="Save" Style="{StaticResource EditPrimaryButtonStyle}" Click="SaveButton_Click"/>
-        </StackPanel>
-    </Grid>
+                <Button Content="Save" Style="{StaticResource EditPrimaryButtonStyle}" Click="SaveButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Window>
