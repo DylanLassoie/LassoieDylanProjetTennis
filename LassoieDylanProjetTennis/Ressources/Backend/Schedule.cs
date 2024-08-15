@@ -17,6 +17,7 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
     public class Schedule
     {
+        public string TournamentName { get; set; }
         public ScheduleType ScheduleType { get; set; }
         public int ActualRound { get; set; }
 

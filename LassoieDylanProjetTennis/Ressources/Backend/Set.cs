@@ -9,6 +9,7 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
     public class Set
     {
         public int IdSet { get; set; }
+        public int MatchId { get; set; }
         public int ScoreOp1 {  get; set; }
         public int ScoreOp2 { get; set; }
 
