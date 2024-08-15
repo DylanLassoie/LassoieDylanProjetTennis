@@ -16,6 +16,7 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
     public class Court
     {
+        public string StadiumName { get; set; }
         public int IdCourt { get; set; }
         public CourtType CourtType { get; set; }
         public int NbSpectators { get; set; }

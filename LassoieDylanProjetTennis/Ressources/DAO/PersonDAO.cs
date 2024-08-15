@@ -42,5 +42,31 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             List<Person> persons = new List<Person>();
             return persons;
         }
+
+        public bool UpdateParticipation(Person person)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+
+                    string query = "UPDATE Person SET Participation = @Participation WHERE FirstName = @FirstName AND LastName = @LastName";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Participation", person.Participation ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", person.LastName);
+
+                    int result = cmd.ExecuteNonQuery();
+                    return result > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred while updating the Participation!", ex);
+            }
+        }
+
     }
 }

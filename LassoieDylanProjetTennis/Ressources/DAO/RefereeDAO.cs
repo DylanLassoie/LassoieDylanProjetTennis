@@ -11,6 +11,8 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
 {
     internal class RefereeDAO : DAO<Referee>
     {
+        private readonly PersonDAO personDAO = new PersonDAO();
+
         public RefereeDAO() : base()
         {
             //
@@ -293,5 +295,67 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
             return referee;
         }
+
+        public List<Referee> GetTop10Referees()
+        {
+            List<Referee> top10Referees = new List<Referee>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+
+                    // SQL query to select the first 10 referees
+                    string query = @"
+                SELECT TOP 10 
+                    p.FirstName, 
+                    p.LastName, 
+                    p.Nationality, 
+                    p.GenderType, 
+                    r.League
+                FROM 
+                    Person p
+                INNER JOIN 
+                    Referee r 
+                ON 
+                    p.FirstName = r.FirstName AND 
+                    p.LastName = r.LastName
+                ORDER BY 
+                    p.LastName, p.FirstName"; // Adjust the ORDER BY clause based on your preference
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Referee referee = new Referee
+                            {
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
+                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType"))),
+                                League = reader.GetString(reader.GetOrdinal("League"))
+                            };
+
+                            top10Referees.Add(referee);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred while fetching top 10 referees!", ex);
+            }
+
+            return top10Referees;
+        }
+
+        public bool UpdateParticipation(Referee referee)
+        {
+            return personDAO.UpdateParticipation(referee);
+        }
+
     }
 }

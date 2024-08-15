@@ -11,6 +11,8 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
 {
     internal class PlayerDAO : DAO<Player>
     {
+        private readonly PersonDAO personDAO = new PersonDAO();
+
         public PlayerDAO() : base()
         {
             //
@@ -292,6 +294,99 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                 throw new Exception("An SQL error occurred!", ex);
             }
             return player;
+        }
+
+        public List<Person> GetMalePlayers()
+        {
+            List<Person> malePlayers = new List<Person>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+
+                    // SQL query to select the first 128 male players
+                    string query = @"
+                        SELECT TOP 128 FirstName, LastName, Nationality, GenderType
+                        FROM Person
+                        WHERE GenderType = 'Male'
+                        ORDER BY LastName, FirstName";  // You can modify the ORDER BY clause based on your preference
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Person player = new Person
+                            {
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
+                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                            };
+
+                            malePlayers.Add(player);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred while fetching male players!", ex);
+            }
+
+            return malePlayers;
+        }
+
+        public List<Person> GetFemalePlayers()
+        {
+            List<Person> femalePlayers = new List<Person>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+
+                    // SQL query to select the first 128 female players
+                    string query = @"
+                        SELECT TOP 128 FirstName, LastName, Nationality, GenderType
+                        FROM Person
+                        WHERE GenderType = 'Female'
+                        ORDER BY LastName, FirstName";  // You can modify the ORDER BY clause based on your preference
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Person player = new Person
+                            {
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
+                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType")))
+                            };
+
+                            femalePlayers.Add(player);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred while fetching female players!", ex);
+            }
+
+            return femalePlayers;
+        }
+
+        public bool UpdateParticipation(Player player)
+        {
+            return personDAO.UpdateParticipation(player);
         }
     }
 }

@@ -21,11 +21,12 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "INSERT INTO Courts (CourtType, NbSpectators, Covered) VALUES (@CourtType, @NbSpectators, @Covered)";
+                    string query = "INSERT INTO Courts (CourtType, NbSpectators, Covered, StadiumName) VALUES (@CourtType, @NbSpectators, @Covered, @StadiumName)";
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@CourtType", court.CourtType.ToString());
                     cmd.Parameters.AddWithValue("@NbSpectators", court.NbSpectators);
                     cmd.Parameters.AddWithValue("@Covered", court.Covered);
+                    cmd.Parameters.AddWithValue("@StadiumName", court.StadiumName); // Assuming StadiumName is part of the Court model
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -37,6 +38,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                 throw new Exception("An SQL error occurred!", ex);
             }
         }
+
 
         public override bool Delete(Court court)
         {
@@ -122,5 +124,112 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             List<Court> courts = new List<Court>();
             return courts;
         }
+
+        public bool CreateCourt(Court court, string stadiumName)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+                    SqlTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        // Insert the court into the Court table
+                        string insertCourtQuery = @"
+                            INSERT INTO Court (CourtType, NbSpectators, Covered, StadiumName) 
+                            VALUES (@CourtType, @NbSpectators, @Covered, @StadiumName)";
+
+                        SqlCommand cmd = new SqlCommand(insertCourtQuery, connection, transaction);
+                        cmd.Parameters.AddWithValue("@CourtType", court.CourtType.ToString());
+                        cmd.Parameters.AddWithValue("@NbSpectators", court.NbSpectators);
+                        cmd.Parameters.AddWithValue("@Covered", court.Covered);
+                        cmd.Parameters.AddWithValue("@StadiumName", stadiumName);
+
+                        cmd.ExecuteNonQuery();
+
+                        // Commit the transaction if successful
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Rollback the transaction if an error occurs
+                        transaction.Rollback();
+                        throw new Exception("An error occurred while creating the court.", ex);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+        }
+
+        // Get the number of courts associated with a specific stadium
+        public int GetNbCourtsForStadium(string stadiumName)
+        {
+            int nbCourts = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"
+                SELECT NbCourts 
+                FROM Stadium 
+                WHERE NameOfStadium = @StadiumName";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@StadiumName", stadiumName);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        nbCourts = (int)result;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+
+            return nbCourts;
+        }
+        public int GetCourtCountForStadium(string stadiumName)
+        {
+            int courtCount = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"
+                        SELECT COUNT(*) 
+                        FROM Court 
+                        WHERE StadiumName = @StadiumName";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@StadiumName", stadiumName);
+
+                    courtCount = (int)cmd.ExecuteScalar();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("An SQL error occurred!", ex);
+            }
+
+            return courtCount;
+        }
+
+
+
     }
 }

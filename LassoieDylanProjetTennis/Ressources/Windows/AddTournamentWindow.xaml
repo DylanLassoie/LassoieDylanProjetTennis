@@ -32,14 +32,14 @@
                             <!-- Populate this ComboBox with the list of stadiums -->
                         </ComboBox>
 
-                        <Button Content="Create Court" x:Name="CreateCourtButton" Style="{StaticResource AddPrimaryButtonStyle}" Click="CreateCourtButton_Click"/>
+                        <Button Content="Create Court" x:Name="CreateCourtButton" Style="{StaticResource AddSecondaryButtonStyle}" Click="CreateCourtButton_Click"/>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Players Section -->
                 <GroupBox Header="Players" Margin="0,0,0,10" Style="{StaticResource AddGroupBoxStyle}">
                     <StackPanel>
-                        <Button Content="Add Players" x:Name="AddPlayersButton" Style="{StaticResource AddPrimaryButtonStyle}" Click="AddPlayersButton_Click"/>
+                        <Button Content="Add Players" x:Name="AddPlayersButton" Style="{StaticResource AddSecondaryButtonStyle}" Click="AddPlayersButton_Click"/>
                         <ListBox x:Name="PlayersListBox" Style="{StaticResource AddInputListBoxStyle}"/>
                     </StackPanel>
                 </GroupBox>
@@ -47,7 +47,7 @@
                 <!-- Referees Section -->
                 <GroupBox Header="Referees" Margin="0,0,0,10" Style="{StaticResource AddGroupBoxStyle}">
                     <StackPanel>
-                        <Button Content="Add Referees" x:Name="AddRefereesButton" Style="{StaticResource AddPrimaryButtonStyle}" Click="AddRefereesButton_Click"/>
+                        <Button Content="Add Referees" x:Name="AddRefereesButton" Style="{StaticResource AddSecondaryButtonStyle}" Click="AddRefereesButton_Click"/>
                         <ListBox x:Name="RefereesListBox" Style="{StaticResource AddInputListBoxStyle}"/>
                     </StackPanel>
                 </GroupBox>
