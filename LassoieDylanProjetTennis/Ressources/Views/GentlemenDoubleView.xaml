@@ -1,4 +1,4 @@
-﻿<Page x:Class="LassoieDylanProjetTennis.Ressources.Views.HomeView"
+﻿<Page x:Class="LassoieDylanProjetTennis.Ressources.Views.GentlemenDoubleView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,10 +6,9 @@
       xmlns:local="clr-namespace:LassoieDylanProjetTennis.Ressources.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="HomeView">
+      Title="GentlemenDoubleView">
 
-    <Grid Style="{StaticResource HomeBackgroundStyle}">
-        <TextBlock Text="Organisation d'un tournoi du grand Slam" Style="{StaticResource Title1Style}"/>
-        <TextBlock Text="Par Lassoie Dylan" Style="{StaticResource Title2Style}" />
+    <Grid>
+        
     </Grid>
 </Page>

@@ -11,7 +11,7 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
         public int IdSuperTieBreak {  get; set; }
         public void Play() 
         {
-            //Implementation
+
         }
     }
 }

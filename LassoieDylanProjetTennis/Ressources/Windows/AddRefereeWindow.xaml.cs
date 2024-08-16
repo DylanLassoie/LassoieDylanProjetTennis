@@ -28,14 +28,12 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve user input
             string firstName = FirstNameTextBox.Text;
             string lastName = LastNameTextBox.Text;
             string nationality = NationalityTextBox.Text;
             string genderType = (GenderTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string league = LeagueTextBox.Text;
 
-            // Basic validation (ensure all fields are filled)
             if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) ||
                 string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(genderType) ||
                 string.IsNullOrEmpty(league))
@@ -44,7 +42,6 @@ namespace LassoieDylanProjetTennis.Ressources.Views
                 return;
             }
 
-            // Create a new Referee object
             Referee newReferee = new Referee
             {
                 FirstName = firstName,
@@ -54,10 +51,7 @@ namespace LassoieDylanProjetTennis.Ressources.Views
                 League = league
             };
 
-            // Set the DialogResult to true and close the dialog
             this.DialogResult = true;
-
-            // Store the new Referee object in the Tag property for retrieval
             this.Tag = newReferee;
 
             this.Close();

@@ -18,13 +18,13 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
         public string GetWinner()
         {
-            //Implementation
+            
             return "Winner";
         }
 
         public void Play()
         {
-            //Implementation
+           
         }
     }
 }

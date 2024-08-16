@@ -263,16 +263,18 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
         public Player FindByName(string firstName, string lastName)
         {
             Player player = null;
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Players WHERE FirstName = @FirstName AND LastName = @LastName";
+                    connection.Open();
+
+                    string query = "SELECT * FROM Person WHERE FirstName = @FirstName AND LastName = @LastName AND GenderType = 'Male'";
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@FirstName", firstName);
                     cmd.Parameters.AddWithValue("@LastName", lastName);
 
-                    connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -282,8 +284,8 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
-                                GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType"))),
-                                Rank = reader.GetInt32(reader.GetOrdinal("Rank"))
+                                GenderType = GenderType.Male, // or Female depending on the method
+                                Participation = reader["Participation"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("Participation")) : null
                             };
                         }
                     }
@@ -291,8 +293,9 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
             catch (SqlException ex)
             {
-                throw new Exception("An SQL error occurred!", ex);
+                throw new Exception("An SQL error occurred while finding the player!", ex);
             }
+
             return player;
         }
 

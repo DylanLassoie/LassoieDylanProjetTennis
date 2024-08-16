@@ -11,7 +11,6 @@ namespace LassoieDylanProjetTennis
             MainFrame.Navigate(new HomeView());
         }
 
-        // Navigation menu
         private void NavigationMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (NavigationMenu.SelectedItem is ListBoxItem selectedItem)

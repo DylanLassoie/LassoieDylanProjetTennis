@@ -12,7 +12,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
     {
         public SetDAO() : base()
         {
-            //
+            
         }
 
         public override bool Create(Set set)
@@ -45,7 +45,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                 {
                     string query = "DELETE FROM Sets WHERE IdSet = @IdSet";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdSet", set.IdSet); // Assuming IdSet is a unique identifier for the Set
+                    cmd.Parameters.AddWithValue("@IdSet", set.IdSet); 
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -66,7 +66,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                 {
                     string query = "UPDATE Sets SET ScoreOp1 = @ScoreOp1, ScoreOp2 = @ScoreOp2 WHERE IdSet = @IdSet";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdSet", set.IdSet); // Assuming IdSet is a unique identifier for the Set
+                    cmd.Parameters.AddWithValue("@IdSet", set.IdSet); 
                     cmd.Parameters.AddWithValue("@ScoreOp1", set.ScoreOp1);
                     cmd.Parameters.AddWithValue("@ScoreOp2", set.ScoreOp2);
 

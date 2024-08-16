@@ -13,7 +13,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
     {
         public StadiumDAO() : base()
         {
-            //
+            
         }
 
         public override bool Create(Stadium stadium)
@@ -27,7 +27,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
 
                     try
                     {
-                        // Insertion dans la table Stadium
                         string insertStadiumQuery = @"
                 INSERT INTO Stadium (NameOfStadium, Location, NbCourts) 
                 VALUES (@NameOfStadium, @Location, @NbCourts)";
@@ -38,14 +37,11 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                         stadiumCmd.Parameters.AddWithValue("@NbCourts", stadium.NbCourts);
 
                         stadiumCmd.ExecuteNonQuery();
-
-                        // Commit la transaction si l'insertion réussit
                         transaction.Commit();
                         return true;
                     }
                     catch (Exception ex)
                     {
-                        // Rollback de la transaction en cas d'erreur
                         transaction.Rollback();
                         throw new Exception("An error occurred while creating the Stadium.", ex);
                     }
@@ -69,7 +65,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
 
                     try
                     {
-                        // Supprimer de la table Stadium
                         string deleteStadiumQuery = "DELETE FROM Stadium WHERE NameOfStadium = @NameOfStadium AND Location = @Location";
                         SqlCommand deleteStadiumCmd = new SqlCommand(deleteStadiumQuery, connection, transaction);
                         deleteStadiumCmd.Parameters.AddWithValue("@NameOfStadium", stadium.NameOfStadium);
@@ -79,13 +74,11 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
 
                         if (resultStadium > 0)
                         {
-                            // Commit la transaction si la suppression a réussi
                             transaction.Commit();
                             return true;
                         }
                         else
                         {
-                            // Rollback si la suppression échoue
                             transaction.Rollback();
                             MessageBox.Show("Failed to delete the Stadium.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             return false;
@@ -93,7 +86,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                     }
                     catch (SqlException ex)
                     {
-                        // Rollback et afficher le message d'erreur SQL
                         transaction.Rollback();
                         MessageBox.Show($"SQL Error: {ex.Message}", "SQL Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
@@ -102,7 +94,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
             catch (Exception ex)
             {
-                // Capturer et afficher toute autre exception
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
@@ -120,7 +111,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
 
                     try
                     {
-                        // Mettre à jour la table Stadium
                         string updateStadiumQuery = @"
                 UPDATE Stadium 
                 SET Location = @Location, NbCourts = @NbCourts 
@@ -135,20 +125,17 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
 
                         if (resultStadium > 0)
                         {
-                            // Commit la transaction si la mise à jour a réussi
                             transaction.Commit();
                             return true;
                         }
                         else
                         {
-                            // Rollback si la mise à jour échoue
                             transaction.Rollback();
                             return false;
                         }
                     }
                     catch (SqlException ex)
                     {
-                        // Rollback et afficher le message d'erreur SQL
                         transaction.Rollback();
                         throw new Exception("An SQL error occurred!", ex);
                     }
@@ -159,7 +146,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                 throw new Exception("An SQL error occurred!", ex);
             }
         }
-
 
         public override Stadium Find(int id)
         {
@@ -202,7 +188,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    // SQL query to select all columns from the Stadium table
                     string query = @"
             SELECT 
                 NameOfStadium,
@@ -238,8 +223,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             return stadiums;
         }
 
-
-        // Optional: Add a method to find stadiums by name
         public Stadium FindByName(string name)
         {
             Stadium stadium = null;
@@ -272,7 +255,5 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
             return stadium;
         }
-
-        
     }
 }

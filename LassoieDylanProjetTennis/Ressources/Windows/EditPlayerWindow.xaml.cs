@@ -27,7 +27,7 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
         {
             InitializeComponent();
             _player = player;
-            DataContext = _player; // Assurez-vous que le DataContext est bien assigné
+            DataContext = _player;
 
             // Initialiser les champs avec les valeurs actuelles
             FirstNameTextBox.Text = _player.FirstName;
@@ -41,7 +41,6 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validation de base
             string nationality = NationalityTextBox.Text;
             string genderType = (GenderTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string rankText = RankTextBox.Text;
@@ -58,12 +57,10 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
                 return;
             }
 
-            // Mise à jour des propriétés du joueur
             _player.Nationality = nationality;
             _player.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
             _player.Rank = rank;
 
-            // Fermer la fenêtre avec DialogResult à true
             this.DialogResult = true;
             this.Close();
         }

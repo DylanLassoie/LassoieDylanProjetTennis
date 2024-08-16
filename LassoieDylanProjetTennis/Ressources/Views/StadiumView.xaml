@@ -9,7 +9,6 @@
       Title="StadiumView">
 
     <Grid Margin="20">
-        <!-- DataGrid with Custom Styles -->
         <DataGrid x:Name="StadiumDataGrid" 
           AutoGenerateColumns="False" 
           CanUserAddRows="False" 

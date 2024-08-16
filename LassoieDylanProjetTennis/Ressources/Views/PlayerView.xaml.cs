@@ -41,36 +41,28 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
         private void LoadPlayer()
         {
-            var playerDAO = daoFactory.GetPlayerDAO(); // Assuming you have a method to get the PlayerDAO
-
-            // Fetch all players from the database
+            var playerDAO = daoFactory.GetPlayerDAO();
             var playersFromDb = playerDAO.GetAll();
 
-            // Clear the ObservableCollection first if it has old data
             _players.Clear();
 
-            // Add the players to the ObservableCollection
             foreach (var player in playersFromDb)
             {
                 _players.Add(player);
             }
 
-            // Bind the ObservableCollection to the DataGrid
             PlayerDataGrid.ItemsSource = _players;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Open the AddPlayerDialog
            AddPlayerWindow dialog = new AddPlayerWindow();
             if (dialog.ShowDialog() == true)
             {
-                // Retrieve the new Player object from the dialog's Tag property
                 Player newPlayer = dialog.Tag as Player;
 
                 if (newPlayer != null)
                 {
-                    // Add the new player to the database
                     try
                     {
                         var playerDAO = daoFactory.GetPlayerDAO();
@@ -78,9 +70,7 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
                         if (success)
                         {
-                            // Add the new player to the ObservableCollection
                             _players.Add(newPlayer);
-                            // No need to refresh the DataGrid as ObservableCollection handles it automatically
                         }
                         else
                         {
@@ -95,22 +85,17 @@ namespace LassoieDylanProjetTennis.Ressources.Views
             }
         }
 
-
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get the DataGridRow that contains the clicked edit button
             Button editButton = sender as Button;
             if (editButton != null)
             {
-                // Find the Player object associated with this row
                 Player playerToEdit = editButton.DataContext as Player;
                 if (playerToEdit != null)
                 {
-                    // Open the EditPlayerWindow with the selected player
                     EditPlayerWindow dialog = new EditPlayerWindow(playerToEdit);
                     if (dialog.ShowDialog() == true)
                     {
-                        // After the dialog is closed, update the player in the database
                         try
                         {
                             var playerDAO = daoFactory.GetPlayerDAO();
@@ -118,7 +103,6 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
                             if (success)
                             {
-                                // Refresh the DataGrid to show the updated data
                                 PlayerDataGrid.Items.Refresh();
                             }
                             else
@@ -135,18 +119,14 @@ namespace LassoieDylanProjetTennis.Ressources.Views
             }
         }
 
-
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get the DataGridRow that contains the clicked delete button
             Button deleteButton = sender as Button;
             if (deleteButton != null)
             {
-                // Find the Player object associated with this row
                 Player playerToDelete = deleteButton.DataContext as Player;
                 if (playerToDelete != null)
                 {
-                    // Confirm the deletion with the user
                     MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete player {playerToDelete.FirstName} {playerToDelete.LastName}?",
                                                               "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -154,15 +134,12 @@ namespace LassoieDylanProjetTennis.Ressources.Views
                     {
                         try
                         {
-                            // Use the DAO to delete the player from the database
                             var playerDAO = daoFactory.GetPlayerDAO();
                             bool success = playerDAO.Delete(playerToDelete);
 
                             if (success)
                             {
-                                // Remove the player from the ObservableCollection
                                 _players.Remove(playerToDelete);
-                                // The DataGrid will update automatically since it's bound to the ObservableCollection
                             }
                             else
                             {

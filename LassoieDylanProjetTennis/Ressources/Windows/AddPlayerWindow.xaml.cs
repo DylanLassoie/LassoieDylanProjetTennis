@@ -26,20 +26,17 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
         }
         private void RankTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Allow only numeric input
             e.Handled = !int.TryParse(e.Text, out _);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve user input
             string firstName = FirstNameTextBox.Text;
             string lastName = LastNameTextBox.Text;
             string nationality = NationalityTextBox.Text;
             string genderType = (GenderTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string rankText = RankTextBox.Text;
 
-            // Basic validation (ensure all fields are filled)
             if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) ||
                 string.IsNullOrEmpty(nationality) || string.IsNullOrEmpty(genderType) ||
                 string.IsNullOrEmpty(rankText))
@@ -48,14 +45,12 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
                 return;
             }
 
-            // Ensure rank is a valid integer
             if (!int.TryParse(rankText, out int rank))
             {
                 MessageBox.Show("Rank must be a valid number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Create a new Player object
             Player newPlayer = new Player
             {
                 FirstName = firstName,
@@ -65,10 +60,7 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
                 Rank = rank
             };
 
-            // Set the DialogResult to true and close the dialog
             this.DialogResult = true;
-
-            // Store the new Player object in the Tag property for retrieval
             this.Tag = newPlayer;
 
             this.Close();

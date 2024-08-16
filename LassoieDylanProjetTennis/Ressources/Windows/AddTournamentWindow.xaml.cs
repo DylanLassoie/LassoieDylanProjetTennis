@@ -1,10 +1,12 @@
 ﻿using LassoieDylanProjetTennis.Ressources.Backend;
 using LassoieDylanProjetTennis.Ressources.DAO;
 using LassoieDylanProjetTennis.Ressources.Factory;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,23 +45,18 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
         private void LoadStadiums()
         {
             var stadiumDAO = daoFactory.GetStadiumDAO();
-
-            // Fetch all stadiums from the database
             var stadiumsFromDb = stadiumDAO.GetAll();
 
-            // Clear the ObservableCollection first if it has old data
             _stadiums.Clear();
 
-            // Add the stadiums to the ObservableCollection
             foreach (var stadium in stadiumsFromDb)
             {
                 _stadiums.Add(stadium);
             }
 
-            // Bind the ObservableCollection to the ComboBox
             StadiumComboBox.ItemsSource = _stadiums;
-            StadiumComboBox.DisplayMemberPath = "NameOfStadium"; // Display the name of the stadium in the ComboBox
-            StadiumComboBox.SelectedValuePath = "NameOfStadium"; // You can change this to another property if needed
+            StadiumComboBox.DisplayMemberPath = "NameOfStadium"; 
+            StadiumComboBox.SelectedValuePath = "NameOfStadium"; 
         }
 
 
@@ -87,9 +84,9 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
             {
                 Court newCourt = new Court
                 {
-                    CourtType = CourtType.Hard, // Set a default value or modify as needed
-                    NbSpectators = 5000, // Default value, change as needed
-                    Covered = false, // Default value, change as needed
+                    CourtType = CourtType.Hard, 
+                    NbSpectators = 5000, 
+                    Covered = false, 
                     StadiumName = selectedStadium.NameOfStadium
                 };
 
@@ -100,28 +97,20 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
         }
 
 
-
-
-
         private void AddPlayersButton_Click(object sender, RoutedEventArgs e)
         {
-            // Create an instance of the PlayerDAO using your DAO factory
             var playerDAO = (PlayerDAO)daoFactory.GetPlayerDAO();
 
-            // Clear the current items in the ListBox
             PlayersListBox.Items.Clear();
 
-            // Get the list of male and female players using the PlayerDAO
             var malePlayers = playerDAO.GetMalePlayers();
             var femalePlayers = playerDAO.GetFemalePlayers();
 
-            // Add male players to the ListBox
             foreach (var player in malePlayers)
             {
                 PlayersListBox.Items.Add($"{player.FirstName} {player.LastName} ({player.GenderType})");
             }
 
-            // Add female players to the ListBox
             foreach (var player in femalePlayers)
             {
                 PlayersListBox.Items.Add($"{player.FirstName} {player.LastName} ({player.GenderType})");
@@ -129,19 +118,15 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
         }
 
 
-
         private void AddRefereesButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Get the top 10 referees from the database
                 var refereeDAO = (RefereeDAO)daoFactory.GetRefereeDAO();
                 List<Referee> referees = refereeDAO.GetTop10Referees();
 
-                // Clear the ListBox first
                 RefereesListBox.Items.Clear();
 
-                // Add each referee to the ListBox
                 foreach (var referee in referees)
                 {
                     RefereesListBox.Items.Add($"{referee.FirstName} {referee.LastName} - {referee.Nationality}");
@@ -156,13 +141,11 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve user input
             string tournamentName = TournamentNameTextBox.Text;
             DateTime? startDate = StartDatePicker.SelectedDate;
             DateTime? endDate = EndDatePicker.SelectedDate;
-            var selectedStadium = StadiumComboBox.SelectedItem as Stadium; // Assuming Stadium is the type
+            var selectedStadium = StadiumComboBox.SelectedItem as Stadium;
 
-            // Basic validation (ensure all fields are filled)
             if (string.IsNullOrEmpty(tournamentName) || !startDate.HasValue || !endDate.HasValue || selectedStadium == null)
             {
                 MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -177,48 +160,67 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
 
             try
             {
-                // Create a new Tournament object
                 Tournament newTournament = new Tournament
                 {
                     Name = tournamentName,
                     StartingDate = startDate.Value,
                     EndingDate = endDate.Value,
-                    // Assuming there’s a Stadium property in the Tournament class
-                    // to hold the selected stadium
+                    StadiumName = selectedStadium.NameOfStadium  
                 };
 
-                // Store the new Tournament object in the Tag property for retrieval
-                this.Tag = newTournament;
-
-                // Save the tournament to the database
                 var tournamentDAO = daoFactory.GetTournamentDAO();
                 tournamentDAO.Create(newTournament);
 
-                // Update the Participation column for all players and referees
                 var playerDAO = (PlayerDAO)daoFactory.GetPlayerDAO();
+                foreach (var item in PlayersListBox.Items)
+                {
+                    var playerInfo = item.ToString();
+
+                    int genderTextStartIndex = playerInfo.LastIndexOf(" (");
+
+                    string fullName = playerInfo.Substring(0, genderTextStartIndex).Trim();
+
+                    var nameParts = fullName.Split(' ');
+
+                    string lastName = nameParts.Last();
+
+                    string firstName = string.Join(" ", nameParts.Take(nameParts.Length - 1));
+
+                    var player = playerDAO.FindByName(firstName, lastName);
+                    if (player != null)
+                    {
+                        player.Participation = tournamentName;
+                        playerDAO.UpdateParticipation(player);
+                        Debug.WriteLine($"Found player: {firstName} {lastName} - Updating Participation to {tournamentName}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Player not found in the database: {firstName} {lastName}");
+                    }
+                }
+
                 var refereeDAO = (RefereeDAO)daoFactory.GetRefereeDAO();
-
-                foreach (var player in PlayersListBox.Items)
+                foreach (var item in RefereesListBox.Items)
                 {
-                    var person = player as Person;
-                    if (person != null)
+                    var refereeInfo = item.ToString().Split('-');
+                    var nameParts = refereeInfo[0].Trim().Split(' ');
+
+                    string lastName = nameParts.Last();
+                    string firstName = string.Join(" ", nameParts.Take(nameParts.Length - 1));
+
+                    var referee = refereeDAO.FindByName(firstName, lastName);
+                    if (referee != null)
                     {
-                        person.Participation = tournamentName;
-                        playerDAO.UpdateParticipation((Player)person);
+                        referee.Participation = tournamentName;
+                        refereeDAO.UpdateParticipation(referee);
+                        Debug.WriteLine($"Found referee: {firstName} {lastName} - Updating Participation to {tournamentName}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Referee not found in the database: {firstName} {lastName}");
                     }
                 }
 
-                foreach (var referee in RefereesListBox.Items)
-                {
-                    var person = referee as Person;
-                    if (person != null)
-                    {
-                        person.Participation = tournamentName;
-                        refereeDAO.UpdateParticipation((Referee)person);
-                    }
-                }
-
-                // Set the DialogResult to true and close the dialog
                 this.DialogResult = true;
                 this.Close();
             }
@@ -227,6 +229,5 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
                 MessageBox.Show($"An error occurred while saving the tournament: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
     }
 }

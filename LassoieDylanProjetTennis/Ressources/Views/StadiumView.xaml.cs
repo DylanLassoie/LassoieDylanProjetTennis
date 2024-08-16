@@ -43,36 +43,28 @@ namespace LassoieDylanProjetTennis.Ressources.Views
         private void LoadStadium()
         {
             var stadiumDAO = daoFactory.GetStadiumDAO();
-
-            // Fetch all stadiums from the database
             var stadiumsFromDb = stadiumDAO.GetAll();
 
-            // Clear the ObservableCollection first if it has old data
             _stadiums.Clear();
 
-            // Add the stadiums to the ObservableCollection
             foreach (var stadium in stadiumsFromDb)
             {
                 _stadiums.Add(stadium);
             }
 
-            // Bind the ObservableCollection to the DataGrid
             StadiumDataGrid.ItemsSource = _stadiums;
         }
 
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Ouvrir la fenêtre de dialogue pour ajouter un stade
             AddStadiumWindow dialog = new AddStadiumWindow();
             if (dialog.ShowDialog() == true)
             {
-                // Récupérer le nouvel objet Stadium depuis la propriété Tag de la fenêtre de dialogue
                 Stadium newStadium = dialog.Tag as Stadium;
 
                 if (newStadium != null)
                 {
-                    // Ajouter le nouveau stade dans la base de données
                     try
                     {
                         var stadiumDAO = daoFactory.GetStadiumDAO();
@@ -80,9 +72,8 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
                         if (success)
                         {
-                            // Ajouter le nouveau stade à l'ObservableCollection
+
                             _stadiums.Add(newStadium);
-                            // Pas besoin de rafraîchir le DataGrid car ObservableCollection gère cela automatiquement
                         }
                         else
                         {
@@ -99,19 +90,16 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // Récupérer la ligne du DataGrid contenant le bouton de modification cliqué
             Button editButton = sender as Button;
             if (editButton != null)
             {
-                // Trouver l'objet Stadium associé à cette ligne
+
                 Stadium stadiumToEdit = editButton.DataContext as Stadium;
                 if (stadiumToEdit != null)
                 {
-                    // Ouvrir la fenêtre EditStadiumWindow avec le stade sélectionné
                     EditStadiumWindow dialog = new EditStadiumWindow(stadiumToEdit);
                     if (dialog.ShowDialog() == true)
                     {
-                        // Après la fermeture de la fenêtre de dialogue, mettre à jour le stade dans la base de données
                         try
                         {
                             var stadiumDAO = daoFactory.GetStadiumDAO();
@@ -119,7 +107,6 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
                             if (success)
                             {
-                                // Rafraîchir le DataGrid pour afficher les données mises à jour
                                 StadiumDataGrid.Items.Refresh();
                             }
                             else
@@ -136,18 +123,14 @@ namespace LassoieDylanProjetTennis.Ressources.Views
             }
         }
 
-
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Récupérer la ligne du DataGrid contenant le bouton de suppression cliqué
             Button deleteButton = sender as Button;
             if (deleteButton != null)
             {
-                // Trouver l'objet Stadium associé à cette ligne
                 Stadium stadiumToDelete = deleteButton.DataContext as Stadium;
                 if (stadiumToDelete != null)
                 {
-                    // Confirmer la suppression avec l'utilisateur
                     MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete stadium {stadiumToDelete.NameOfStadium} located in {stadiumToDelete.Location}?",
                                                               "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -155,15 +138,12 @@ namespace LassoieDylanProjetTennis.Ressources.Views
                     {
                         try
                         {
-                            // Utiliser le DAO pour supprimer le stade de la base de données
                             var stadiumDAO = daoFactory.GetStadiumDAO();
                             bool success = stadiumDAO.Delete(stadiumToDelete);
 
                             if (success)
                             {
-                                // Supprimer le stade de l'ObservableCollection
                                 _stadiums.Remove(stadiumToDelete);
-                                // Le DataGrid se mettra à jour automatiquement car il est lié à l'ObservableCollection
                             }
                             else
                             {

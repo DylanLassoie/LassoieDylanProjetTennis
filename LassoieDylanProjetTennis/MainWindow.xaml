@@ -10,13 +10,10 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <!-- Largeur menu -->
             <ColumnDefinition Width="200"/>
-            <!-- Largeur de la frame pour autres vues -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Menu -->
         <ListBox x:Name="NavigationMenu" SelectionChanged="NavigationMenu_SelectionChanged" Style="{StaticResource NavigationMenuStyle}">
             <ListBoxItem Content="Home"  Style="{StaticResource MenuButtonStyle}"/>
             <ListBoxItem Content="Tournaments"  Style="{StaticResource MenuButtonStyle}"/>
@@ -25,7 +22,6 @@
             <ListBoxItem Content="Referees"  Style="{StaticResource MenuButtonStyle}"/>
         </ListBox>
 
-        <!-- Frame pour vues -->
         <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

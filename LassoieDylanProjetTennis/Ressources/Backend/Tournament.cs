@@ -11,10 +11,11 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
         public string Name { get; set; }
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
+        public string StadiumName { get; set; }
 
         public void Play()
         {
-            //Implementation
+
         }
     }
 }

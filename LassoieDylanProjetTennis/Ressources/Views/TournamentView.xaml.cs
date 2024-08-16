@@ -42,37 +42,29 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
         private void LoadTournament()
         {
-            var tournamentDAO = daoFactory.GetTournamentDAO(); // Assuming you have a method to get the TournamentDAO
-
-            // Fetch all tournaments from the database
+            var tournamentDAO = daoFactory.GetTournamentDAO();
             var tournamentsFromDb = tournamentDAO.GetAll();
 
-            // Clear the ObservableCollection first if it has old data
             _tournaments.Clear();
 
-            // Add the tournaments to the ObservableCollection
             foreach (var tournament in tournamentsFromDb)
             {
                 _tournaments.Add(tournament);
             }
 
-            // Bind the ObservableCollection to the DataGrid
             TournamentDataGrid.ItemsSource = _tournaments;
         }
 
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Open the AddTournamentDialog
             AddTournamentWindow dialog = new AddTournamentWindow();
             if (dialog.ShowDialog() == true)
             {
-                // Retrieve the new Tournament object from the dialog's Tag property
                 Tournament newTournament = dialog.Tag as Tournament;
 
                 if (newTournament != null)
                 {
-                    // Add the new tournament to the database
                     try
                     {
                         var tournamentDAO = daoFactory.GetTournamentDAO();
@@ -80,9 +72,7 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
                         if (success)
                         {
-                            // Add the new tournament to the ObservableCollection
                             _tournaments.Add(newTournament);
-                            // No need to refresh the DataGrid as ObservableCollection handles it automatically
                         }
                         else
                         {
@@ -100,20 +90,26 @@ namespace LassoieDylanProjetTennis.Ressources.Views
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-           
+            Button playButton = sender as Button;
+            if (playButton != null)
+            {
+                Tournament selectedTournament = playButton.DataContext as Tournament;
+                if (selectedTournament != null)
+                {
+                    PlayTournamentWindow playWindow = new PlayTournamentWindow(selectedTournament.Name);
+                    playWindow.ShowDialog();
+                }
+            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get the DataGridRow that contains the clicked delete button
             Button deleteButton = sender as Button;
             if (deleteButton != null)
             {
-                // Find the Tournament object associated with this row
                 Tournament tournamentToDelete = deleteButton.DataContext as Tournament;
                 if (tournamentToDelete != null)
                 {
-                    // Confirm the deletion with the user
                     MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the tournament {tournamentToDelete.Name}?",
                                                               "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -121,15 +117,12 @@ namespace LassoieDylanProjetTennis.Ressources.Views
                     {
                         try
                         {
-                            // Use the DAO to delete the tournament from the database
                             var tournamentDAO = daoFactory.GetTournamentDAO();
                             bool success = tournamentDAO.Delete(tournamentToDelete);
 
                             if (success)
                             {
-                                // Remove the tournament from the ObservableCollection
                                 _tournaments.Remove(tournamentToDelete);
-                                // The DataGrid will update automatically since it's bound to the ObservableCollection
                             }
                             else
                             {

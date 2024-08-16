@@ -23,18 +23,16 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
         public int NbWinningSets() 
         {
-            //Implementation
             return 0;
         }
 
         public void PlayNextRound()
         {
-            //Implementation
+           
         }
 
         public string GetWinner()
         {
-            //Implementation
             return "Winner";
         }
     }

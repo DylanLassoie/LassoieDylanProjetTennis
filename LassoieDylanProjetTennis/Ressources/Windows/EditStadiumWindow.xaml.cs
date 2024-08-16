@@ -27,9 +27,8 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
             InitializeComponent();
 
             _originalStadium = stadium;
-            DataContext = _originalStadium; // Assurez-vous que le DataContext est bien assigné
+            DataContext = _originalStadium;
 
-            // Initialiser les champs avec les valeurs actuelles
             NameOfStadiumTextBox.Text = _originalStadium.NameOfStadium;
             LocationTextBox.Text = _originalStadium.Location;
             NbCourtsTextBox.Text = _originalStadium.NbCourts.ToString();
@@ -37,35 +36,29 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
 
         private void NbCourtsTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Allow only numeric input
             e.Handled = !int.TryParse(e.Text, out _);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve user input
             string location = LocationTextBox.Text;
             string nbCourtsText = NbCourtsTextBox.Text;
 
-            // Basic validation (ensure all fields are filled)
             if (string.IsNullOrEmpty(location) || string.IsNullOrEmpty(nbCourtsText))
             {
                 MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Ensure the number of courts is a valid integer
             if (!int.TryParse(nbCourtsText, out int nbCourts))
             {
                 MessageBox.Show("Number of courts must be a valid number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Update the stadium details
             _originalStadium.Location = location;
             _originalStadium.NbCourts = nbCourts;
 
-            // Set the DialogResult to true and close the dialog
             this.DialogResult = true;
             this.Close();
         }

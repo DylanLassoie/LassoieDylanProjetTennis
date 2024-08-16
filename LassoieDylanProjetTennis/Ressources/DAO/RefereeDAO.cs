@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -263,16 +264,36 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
         public Referee FindByName(string firstName, string lastName)
         {
             Referee referee = null;
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(this.connectionString))
                 {
-                    string query = "SELECT * FROM Referees WHERE FirstName = @FirstName AND LastName = @LastName";
+                    connection.Open();
+
+                    string query = @"
+                SELECT 
+                    p.FirstName, 
+                    p.LastName, 
+                    p.Nationality, 
+                    p.GenderType, 
+                    r.League, 
+                    p.Participation
+                FROM 
+                    Person p
+                INNER JOIN 
+                    Referee r 
+                ON 
+                    p.FirstName = r.FirstName AND 
+                    p.LastName = r.LastName
+                WHERE 
+                    p.FirstName = @FirstName AND 
+                    p.LastName = @LastName";
+
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@FirstName", firstName);
                     cmd.Parameters.AddWithValue("@LastName", lastName);
 
-                    connection.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -283,7 +304,8 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 Nationality = reader.GetString(reader.GetOrdinal("Nationality")),
                                 GenderType = (GenderType)Enum.Parse(typeof(GenderType), reader.GetString(reader.GetOrdinal("GenderType"))),
-                                League = reader.GetString(reader.GetOrdinal("League"))
+                                League = reader.GetString(reader.GetOrdinal("League")),
+                                Participation = reader["Participation"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("Participation")) : null
                             };
                         }
                     }
@@ -291,10 +313,16 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             }
             catch (SqlException ex)
             {
-                throw new Exception("An SQL error occurred!", ex);
+                throw new Exception("An SQL error occurred while finding the referee!", ex);
             }
+
             return referee;
         }
+
+        
+
+
+
 
         public List<Referee> GetTop10Referees()
         {

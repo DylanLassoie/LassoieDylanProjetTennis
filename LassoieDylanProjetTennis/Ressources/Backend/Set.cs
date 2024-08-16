@@ -15,7 +15,7 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
         public void Play() 
         { 
-            //Implementation
+
         }
     }
 }

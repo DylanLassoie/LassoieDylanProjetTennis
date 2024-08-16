@@ -24,13 +24,13 @@ namespace LassoieDylanProjetTennis.Ressources.Backend
 
         public bool Available()
         {
-            //Implementation
+            
             return true;
         }
 
         public void Release() 
         {
-            //Implementation
+            
         }
     }
 }

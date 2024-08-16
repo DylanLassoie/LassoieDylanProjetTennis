@@ -12,7 +12,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
     {
         public MatchDAO() : base()
         {
-            //
+
         }
 
         public override bool Create(Match match)

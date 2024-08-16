@@ -12,7 +12,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
     {
         public PersonDAO() : base()
         {
-            //
+
         }
 
         public override bool Create(Person person)

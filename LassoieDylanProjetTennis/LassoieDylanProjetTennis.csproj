@@ -14,60 +14,60 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="Ressources\Fonts\Poppins-Black.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-BlackItalic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-Bold.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-BoldItalic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-ExtraBold.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-ExtraBoldItalic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-ExtraLight.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-ExtraLightItalic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-Italic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-Light.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-LightItalic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-Medium.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-MediumItalic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-Regular.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-SemiBold.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-SemiBoldItalic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-Thin.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
-	  <Resource Include="Ressources\Fonts\Poppins-ThinItalic.ttf">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Resource>
+		<Resource Include="Ressources\Fonts\Poppins-Black.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-BlackItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-Bold.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-BoldItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-ExtraBold.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-ExtraBoldItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-ExtraLight.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-ExtraLightItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-Italic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-Light.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-LightItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-Medium.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-MediumItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-Regular.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-SemiBold.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-SemiBoldItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-Thin.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\Fonts\Poppins-ThinItalic.ttf">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
 	</ItemGroup>
 
 </Project>

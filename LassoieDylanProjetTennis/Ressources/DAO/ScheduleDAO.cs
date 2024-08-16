@@ -12,7 +12,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
     {
         public ScheduleDAO() : base()
         {
-            //
+            
         }
 
         public override bool Create(Schedule schedule)
@@ -119,7 +119,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             return Schedules;
         }
 
-        // Optional: Add a method to find schedules by ScheduleType
         public Schedule FindByType(ScheduleType scheduleType)
         {
             Schedule schedule = null;

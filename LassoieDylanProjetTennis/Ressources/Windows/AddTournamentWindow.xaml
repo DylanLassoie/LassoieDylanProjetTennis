@@ -10,7 +10,6 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid Margin="20">
             <StackPanel>
-                <!-- Tournament Information Section -->
                 <GroupBox Header="Tournament Information" Margin="0,0,0,10" Style="{StaticResource AddGroupBoxStyle}">
                     <StackPanel>
                         <TextBlock Text="Tournament Name:" Style="{StaticResource AddLabelTextBlockStyle}"/>
@@ -24,19 +23,16 @@
                     </StackPanel>
                 </GroupBox>
 
-                <!-- Stadium Selection Section -->
                 <GroupBox Header="Stadium Selection" Margin="0,0,0,10" Style="{StaticResource AddGroupBoxStyle}">
                     <StackPanel>
                         <TextBlock Text="Select Stadium:" Style="{StaticResource AddLabelTextBlockStyle}"/>
                         <ComboBox x:Name="StadiumComboBox" Style="{StaticResource AddInputComboBoxStyle}">
-                            <!-- Populate this ComboBox with the list of stadiums -->
                         </ComboBox>
 
                         <Button Content="Create Court" x:Name="CreateCourtButton" Style="{StaticResource AddSecondaryButtonStyle}" Click="CreateCourtButton_Click"/>
                     </StackPanel>
                 </GroupBox>
 
-                <!-- Players Section -->
                 <GroupBox Header="Players" Margin="0,0,0,10" Style="{StaticResource AddGroupBoxStyle}">
                     <StackPanel>
                         <Button Content="Add Players" x:Name="AddPlayersButton" Style="{StaticResource AddSecondaryButtonStyle}" Click="AddPlayersButton_Click"/>
@@ -44,7 +40,6 @@
                     </StackPanel>
                 </GroupBox>
 
-                <!-- Referees Section -->
                 <GroupBox Header="Referees" Margin="0,0,0,10" Style="{StaticResource AddGroupBoxStyle}">
                     <StackPanel>
                         <Button Content="Add Referees" x:Name="AddRefereesButton" Style="{StaticResource AddSecondaryButtonStyle}" Click="AddRefereesButton_Click"/>
@@ -52,7 +47,6 @@
                     </StackPanel>
                 </GroupBox>
 
-                <!-- Submit Button -->
                 <Button Content="Submit" x:Name="SubmitButton" Style="{StaticResource AddPrimaryButtonStyle}" Click="SubmitButton_Click"/>
             </StackPanel>
         </Grid>

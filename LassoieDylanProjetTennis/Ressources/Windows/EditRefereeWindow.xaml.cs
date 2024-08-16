@@ -27,9 +27,8 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
             InitializeComponent();
 
             _originalReferee = referee;
-            DataContext = _originalReferee; // Assurez-vous que le DataContext est bien assigné
+            DataContext = _originalReferee;
 
-            // Initialiser les champs avec les valeurs actuelles
             FirstNameTextBox.Text = _originalReferee.FirstName;
             LastNameTextBox.Text = _originalReferee.LastName;
             NationalityTextBox.Text = _originalReferee.Nationality;
@@ -41,13 +40,11 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
 
         private void RankTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Allow only numeric input
             e.Handled = !int.TryParse(e.Text, out _);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validation de base
             string nationality = NationalityTextBox.Text;
             string genderType = (GenderTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string league = LeagueTextBox.Text;
@@ -58,12 +55,10 @@ namespace LassoieDylanProjetTennis.Ressources.Windows
                 return;
             }
 
-            // Mise à jour des propriétés du referee
             _originalReferee.Nationality = nationality;
             _originalReferee.GenderType = (GenderType)Enum.Parse(typeof(GenderType), genderType);
             _originalReferee.League = league;
 
-            // Fermer la fenêtre avec DialogResult à true
             this.DialogResult = true;
             this.Close();
         }

@@ -12,7 +12,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
     {
         public OpponentDAO() : base()
         {
-            // 
+
         }
 
         public override bool Create(Opponent opponent)
@@ -42,7 +42,6 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
             return opponents;
         }
 
-        // Optional: Add a method to find opponents by name
         public Opponent FindByName(string name)
         {
             Opponent opponent = null;

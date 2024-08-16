@@ -12,7 +12,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
     {
         public SuperTieBreakDAO() : base()
         {
-            //
+            
         }
 
         public override bool Create(SuperTieBreak superTieBreak)
@@ -45,7 +45,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                 {
                     string query = "DELETE FROM SuperTieBreaks WHERE IdSuperTieBreak = @IdSuperTieBreak";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdSuperTieBreak", superTieBreak.IdSuperTieBreak); // Assuming IdSuperTieBreak is a unique identifier for the SuperTieBreak
+                    cmd.Parameters.AddWithValue("@IdSuperTieBreak", superTieBreak.IdSuperTieBreak); 
 
                     connection.Open();
                     int result = cmd.ExecuteNonQuery();
@@ -66,7 +66,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                 {
                     string query = "UPDATE SuperTieBreaks SET ScoreOp1 = @ScoreOp1, ScoreOp2 = @ScoreOp2 WHERE IdSuperTieBreak = @IdSuperTieBreak";
                     SqlCommand cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@IdSuperTieBreak", superTieBreak.IdSuperTieBreak); // Assuming IdSuperTieBreak is a unique identifier for the SuperTieBreak
+                    cmd.Parameters.AddWithValue("@IdSuperTieBreak", superTieBreak.IdSuperTieBreak); 
                     cmd.Parameters.AddWithValue("@ScoreOp1", superTieBreak.ScoreOp1);
                     cmd.Parameters.AddWithValue("@ScoreOp2", superTieBreak.ScoreOp2);
 
@@ -101,7 +101,7 @@ namespace LassoieDylanProjetTennis.Ressources.DAO
                             {
                                 ScoreOp1 = reader.GetInt32(reader.GetOrdinal("ScoreOp1")),
                                 ScoreOp2 = reader.GetInt32(reader.GetOrdinal("ScoreOp2")),
-                                IdSuperTieBreak = reader.GetInt32(reader.GetOrdinal("IdSuperTieBreak")) // Assuming IdSuperTieBreak is a unique identifier for the SuperTieBreak
+                                IdSuperTieBreak = reader.GetInt32(reader.GetOrdinal("IdSuperTieBreak")) 
                             };
                         }
                     }

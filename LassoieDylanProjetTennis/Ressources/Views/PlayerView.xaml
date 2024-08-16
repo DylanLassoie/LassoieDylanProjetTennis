@@ -9,7 +9,6 @@
       Title="PlayerView">
 
     <Grid Margin="20">
-        <!-- DataGrid with Custom Styles -->
         <DataGrid x:Name="PlayerDataGrid" 
           AutoGenerateColumns="False" 
           CanUserAddRows="False" 

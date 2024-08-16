@@ -35,7 +35,6 @@ namespace LassoieDylanProjetTennis.Ressources.Factory
                 case DAOFactoryType.MS_SQL_FACTORY:
                     return new MSSQLFactory();
                 case DAOFactoryType.XML_FACTORY:
-                    // Return XML factory when implemented
                     return null;
                 default:
                     return null;
